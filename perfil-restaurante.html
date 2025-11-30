@@ -1,0 +1,2832 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pizzaria do Chiquin - Perfil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="cart-sync.js"></script>
+  <script src="restaurantes-data.js"></script>
+  <style>
+:root {
+  --primary: #FF8C42;
+  --primary-hover: #FF7A29;
+  --primary-light: #FFB67D;
+  --success: #00A878;
+  --dark: #2E2E2E;
+  --gray: #717171;
+  --light-gray: #F5F5F5;
+  --border: #E8E8E8;
+  --white: #FFFFFF;
+  --rating: #FFB800;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #F8F8F8;
+  color: var(--dark);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+header.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 4rem;
+  background: linear-gradient(135deg, #ffffff 0%, #fff8f0 50%, #fff4e6 100%);
+  position: relative;
+  z-index: 1000;
+  border-bottom: 2px solid rgba(249, 115, 22, 0.1);
+  box-shadow: 0 4px 25px rgba(249, 115, 22, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+header.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(249, 115, 22, 0.03) 25%, 
+    rgba(255, 168, 50, 0.03) 50%, 
+    rgba(249, 115, 22, 0.03) 75%, 
+    transparent 100%
+  );
+  z-index: -1;
+  animation: headerGlow 6s ease-in-out infinite;
+}
+
+@keyframes headerGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.logo {
+  position: relative;
+  padding: 8px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.logo img {
+  width: 100px;
+  height: auto;
+  filter: drop-shadow(0 2px 8px rgba(249, 115, 22, 0.3));
+  transition: all 0.3s ease;
+}
+
+.center-menu {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.menu {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 20px rgba(249, 115, 22, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(249, 115, 22, 0.1);
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 10px 18px;
+  border-radius: 25px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.menu li a::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: linear-gradient(135deg, #f97316, #ffb347);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s ease;
+  z-index: -1;
+}
+
+.menu li a:hover::before {
+  width: 120%;
+  height: 150%;
+}
+
+.menu li a:hover {
+  font-weight: 600;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
+}
+
+.menu li a.active {
+  color: white;
+  font-weight: 600;
+  background: linear-gradient(135deg, #f97316, #ffb347);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
+}
+
+.menu li a.active::before {
+  width: 120%;
+  height: 150%;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  position: relative;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 15% 30%, rgba(249, 115, 22, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 85% 70%, rgba(255, 168, 50, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 45% 20%, rgba(249, 115, 22, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px, 40px 40px, 80px 80px;
+  animation: float 15s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+}
+
+.cart-icon {
+  position: relative;
+  cursor: pointer;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid rgba(249, 115, 22, 0.2);
+  transition: all 0.3s ease;
+}
+
+.cart-icon:hover {
+  border-color: #f97316;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.2);
+}
+
+.cart-icon i {
+  font-size: 20px;
+  color: #f97316;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #f97316;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.cart-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  width: 350px;
+  max-height: 500px;
+  overflow-y: auto;
+  display: none;
+  z-index: 10000;
+  border: 1px solid rgba(249, 115, 22, 0.1);
+}
+
+.cart-dropdown.show {
+  display: block;
+}
+
+.cart-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.close-cart {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #6b7280;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.cart-items {
+  padding: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafafa;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.cart-item-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #e0e0e0;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.cart-item-size {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.cart-item-price {
+  font-weight: 600;
+  color: #f97316;
+  font-size: 14px;
+}
+
+.cart-item-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.remove-item {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.quantity-btn {
+  background: white;
+  border: 1px solid #e0e0e0;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-btn:hover {
+  background: #f0f0f0;
+}
+
+.quantity-text {
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+.cart-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.cart-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.cart-total-label {
+  color: #1f2937;
+}
+
+.cart-total-value {
+  color: #f97316;
+  font-size: 18px;
+}
+
+.cart-checkout-btn {
+  width: 100%;
+  padding: 12px;
+  background: #f97316;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cart-checkout-btn:hover {
+  background: #ea6a0f;
+}
+
+.restaurant-hero {
+  background: var(--white);
+  margin-bottom: 24px;
+}
+
+.hero-image {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  transform: translateY(-60px);
+  margin-bottom: -40px;
+}
+
+.restaurant-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+}
+
+.restaurant-details h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.restaurant-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.meta-item i {
+  color: var(--primary);
+}
+
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--success);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.status-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--success);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.restaurant-address {
+  color: var(--gray);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.restaurant-address:hover {
+  color: var(--primary);
+}
+
+.cta-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(234, 29, 44, 0.3);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover {
+  background: var(--light-gray);
+}
+
+.info-badges {
+  max-width: 1200px;
+  margin: 0 auto 32px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.info-badge {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+
+.info-badge:hover {
+  transform: translateY(-4px);
+}
+
+.info-badge i {
+  font-size: 28px;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.info-badge strong {
+  display: block;
+  font-size: 14px;
+  color: var(--dark);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.info-badge p {
+  font-size: 13px;
+  color: var(--gray);
+  margin: 0;
+}
+
+.info-badge small {
+  font-size: 12px;
+  color: var(--gray);
+  display: block;
+  margin-top: 4px;
+}
+
+.nav-tabs {
+  background: white;
+  position: relative;
+  margin-bottom: 32px;
+  padding-top: 40px;
+}
+
+.nav-tabs::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 40px;
+  background-image: 
+    radial-gradient(circle at 25px 0, #FFB67D 25px, transparent 25px),
+    radial-gradient(circle at 75px 0, #FFD93D 25px, transparent 25px),
+    radial-gradient(circle at 125px 0, #FF6B6B 25px, transparent 25px);
+  background-size: 150px 40px;
+  background-repeat: repeat-x;
+  z-index: 1;
+}
+
+.nav-tabs-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  background: white;
+}
+
+.nav-tab {
+  padding: 16px 0;
+  color: var(--gray);
+  font-weight: 500;
+  font-size: 15px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
+}
+
+.nav-tab:hover,
+.nav-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+.section {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.section-header {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.offer-card {
+  background: var(--primary);
+  border-radius: 12px;
+  padding: 24px;
+  color: white;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.offer-card:hover {
+  transform: scale(1.02);
+}
+
+.offer-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.offer-card p {
+  font-size: 14px;
+  opacity: 0.95;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.offer-price {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.offer-price .old-price {
+  font-size: 16px;
+  text-decoration: line-through;
+  opacity: 0.7;
+  margin-right: 8px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.info-card {
+  background: var(--light-gray);
+  padding: 24px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+}
+
+.info-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 12px;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.payment-methods,
+.area-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.payment-method,
+.area-tag {
+  background: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.payment-method {
+  color: var(--dark);
+  border: 1px solid var(--border);
+}
+
+.area-tag {
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  margin-top: 12px;
+}
+
+.map-container {
+  width: 100%;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.rating-overview {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+  padding: 32px;
+  background: var(--light-gray);
+  border-radius: 12px;
+  margin-bottom: 32px;
+}
+
+.rating-score {
+  text-align: center;
+}
+
+.rating-score .score {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1;
+}
+
+.rating-score .stars {
+  font-size: 24px;
+  color: var(--rating);
+  margin: 8px 0;
+}
+
+.rating-score .total {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.rating-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rating-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rating-bar span {
+  font-size: 14px;
+  font-weight: 600;
+  width: 20px;
+}
+
+.bar-container {
+  flex: 1;
+  height: 8px;
+  background: #E0E0E0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--rating);
+  border-radius: 4px;
+}
+
+.bar-count {
+  font-size: 14px;
+  color: var(--gray);
+  width: 40px;
+  text-align: right;
+}
+
+.comment-form {
+  background: var(--light-gray);
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+}
+
+.comment-form h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.star-rating {
+  display: flex;
+  gap: 8px;
+}
+
+.star {
+  font-size: 32px;
+  color: #E0E0E0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star.active,
+.star:hover {
+  color: var(--rating);
+}
+
+.submit-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background: var(--primary-hover);
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comment {
+  padding: 20px;
+  background: var(--light-gray);
+  border-radius: 12px;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 8px;
+}
+
+.comment-author {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--dark);
+}
+
+.comment-date {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+.comment-rating {
+  color: var(--rating);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.comment-text {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+.schedule-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule-modal.show {
+  display: flex;
+}
+
+.schedule-content {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--gray);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.close-modal:hover {
+  background: var(--light-gray);
+}
+
+.schedule-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--dark);
+}
+
+.schedule-day {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.schedule-day:last-child {
+  border-bottom: none;
+}
+
+.day-name {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.day-hours {
+  color: var(--gray);
+}
+
+footer.footer {
+  background: linear-gradient(135deg, #fef7ed 0%, #fff8f0 50%, #fefbf7 100%);
+  border-top: 1px solid rgba(249, 115, 22, 0.2);
+  margin-top: 40px;
+  padding: 40px 0 30px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.footer-section h3 {
+  color: #f97316;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.footer-section h3::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: #f97316;
+  margin-top: 8px;
+}
+
+.about-section p {
+  color: #6b7280;
+  line-height: 1.7;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 8px;
+  color: #6b7280;
+  transition: all 0.3s ease;
+  border: 1px solid #fed7aa;
+  font-size: 16px;
+}
+
+.social-link:hover {
+  color: white;
+  background: #f97316;
+  transform: translateY(-2px);
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.contact-icon {
+  color: #f97316;
+  width: 16px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer-bottom {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(249, 115, 22, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.footer-bottom p {
+  color: #9ca3af;
+  margin: 0;
+  font-size: 13px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo img {
+  width: 35px;
+  height: auto;
+}
+
+.footer-logo span {
+  color: #f97316;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .cart-dropdown {
+    width: 350px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  header.header {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .logo img {
+    width: 80px;
+  }
+
+  .center-menu {
+    width: 100%;
+  }
+
+  .menu {
+    justify-content: space-around;
+    padding: 8px;
+    width: 100%;
+  }
+
+  .menu li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .menu li a i {
+    font-size: 18px;
+  }
+
+  .restaurant-hero {
+    margin-bottom: 16px;
+  }
+
+  .hero-image {
+    height: 200px;
+  }
+
+  .hero-content {
+    padding: 0 1rem;
+    transform: translateY(-40px);
+    margin-bottom: -20px;
+  }
+
+  .restaurant-card {
+    grid-template-columns: 1fr;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .restaurant-details h1 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .restaurant-meta {
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    justify-content: center;
+  }
+
+  .meta-item {
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .meta-item i {
+    font-size: 12px;
+  }
+
+  .rating-badge {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+
+  .status-open {
+    font-size: 12px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .restaurant-address {
+    font-size: 12px;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .cta-buttons {
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    flex: 1;
+    padding: 10px;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .info-badges {
+    padding: 0 1rem;
+    margin-bottom: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .info-badge {
+    padding: 12px 8px;
+    border-radius: 10px;
+  }
+
+  .info-badge i {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .info-badge strong {
+    font-size: 11px;
+    margin-bottom: 2px;
+  }
+
+  .info-badge p {
+    font-size: 10px;
+  }
+
+  .info-badge small {
+    font-size: 9px;
+    margin-top: 2px;
+  }
+
+  .nav-tabs {
+    margin-bottom: 16px;
+    padding-top: 30px;
+  }
+
+  .nav-tabs::before {
+    height: 30px;
+    background-image: 
+      radial-gradient(circle at 20px 0, #FFB67D 20px, transparent 20px),
+      radial-gradient(circle at 60px 0, #FFD93D 20px, transparent 20px),
+      radial-gradient(circle at 100px 0, #FF6B6B 20px, transparent 20px);
+    background-size: 120px 30px;
+    background-repeat: repeat-x;
+  }
+
+  .nav-tabs-inner {
+    padding: 0 1rem;
+    gap: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-tabs-inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-tab {
+    padding: 12px 0;
+    font-size: 13px;
+  }
+
+  .container {
+    padding: 0 1rem 40px;
+  }
+
+  .section {
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .section-header {
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .section-subtitle {
+    font-size: 12px;
+  }
+
+  .offers-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .offer-card {
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .offer-card h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .offer-card p {
+    font-size: 12px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .offer-price {
+    font-size: 22px;
+  }
+
+  .offer-price .old-price {
+    font-size: 14px;
+    margin-right: 6px;
+  }
+
+  .info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .info-card {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .info-card h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .info-card p {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .payment-method,
+  .area-tag {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+
+  .map-container {
+    height: 250px;
+    border-radius: 10px;
+  }
+
+  .rating-overview {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .rating-score .score {
+    font-size: 48px;
+  }
+
+  .rating-score .stars {
+    font-size: 20px;
+    margin: 6px 0;
+  }
+
+  .rating-score .total {
+    font-size: 12px;
+  }
+
+  .rating-bars {
+    gap: 10px;
+  }
+
+  .rating-bar {
+    gap: 8px;
+  }
+
+  .rating-bar span {
+    font-size: 12px;
+    width: 16px;
+  }
+
+  .bar-container {
+    height: 6px;
+    border-radius: 3px;
+  }
+
+  .bar-fill {
+    border-radius: 3px;
+  }
+
+  .bar-count {
+    font-size: 12px;
+    width: 30px;
+  }
+
+  .comment-form {
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .comment-form h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+
+  .form-group textarea {
+    min-height: 80px;
+  }
+
+  .star-rating {
+    gap: 6px;
+  }
+
+  .star {
+    font-size: 28px;
+  }
+
+  .submit-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .comments-list {
+    gap: 12px;
+  }
+
+  .comment {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .comment-author {
+    font-size: 13px;
+  }
+
+  .comment-date {
+    font-size: 11px;
+  }
+
+  .comment-rating {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .comment-text {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .schedule-modal {
+    padding: 1rem;
+  }
+
+  .schedule-content {
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 400px;
+  }
+
+  .close-modal {
+    top: 12px;
+    right: 12px;
+    font-size: 28px;
+  }
+
+  .schedule-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+    padding-right: 32px;
+  }
+
+  .schedule-day {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  footer.footer {
+    padding: 2rem 1.5rem 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 1.5rem;
+  }
+
+  .footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-section p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-social {
+    gap: 10px;
+  }
+
+  .social-link {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .contact-info {
+    gap: 0.8rem;
+  }
+
+  .contact-item {
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    padding-top: 1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .footer-logo img {
+    width: 30px;
+  }
+
+  .footer-logo span {
+    font-size: 1rem;
+  }
+
+  .footer-bottom p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    width: 70px;
+  }
+
+  .menu li a {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+
+  .menu li a i {
+    font-size: 16px;
+  }
+
+  .restaurant-details h1 {
+    font-size: 18px;
+  }
+
+  .hero-image {
+    height: 180px;
+  }
+
+  .cart-dropdown {
+    width: calc(100vw - 20px);
+    max-width: 350px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+button,
+a,
+.cart-icon,
+.star,
+.offer-card,
+.nav-tab {
+  -webkit-tap-highlight-color: rgba(249, 115, 22, 0.2);
+  touch-action: manipulation;
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.submit-btn:active,
+.cart-checkout-btn:active,
+.offer-card:active,
+.close-modal:active,
+.social-link:active,
+.star:active {
+  transform: scale(0.98);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+.letra {
+  color: #f97316;
+  transition: 0.3s;
+}
+
+.letra:hover {
+  font-weight: bold;
+}
+
+@media (max-width: 1024px) {
+  header.header {
+    padding: 1rem 2rem;
+  }
+  
+  .menu {
+    gap: 0.2rem;
+  }
+  
+  .menu li a {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  header.header {
+    flex-direction: column !important;
+    padding: 1rem !important;
+    gap: 1rem !important;
+  }
+
+  .logo img {
+    width: 80px !important;
+  }
+
+  .center-menu {
+    width: 100% !important;
+  }
+
+  .menu {
+    justify-content: space-around !important;
+    padding: 8px !important;
+    width: 100% !important;
+    flex-wrap: wrap;
+  }
+
+  .menu li a {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+    padding: 8px 12px !important;
+    font-size: 11px !important;
+  }
+
+  .menu li a i {
+    font-size: 18px !important;
+  }
+
+  .header-actions {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    width: 70px !important;
+  }
+
+  .menu li a {
+    padding: 6px 8px !important;
+    font-size: 10px !important;
+  }
+
+  .menu li a i {
+    font-size: 16px !important;
+  }
+
+  .menu li a span {
+    display: none;
+  }
+  
+  .menu li a {
+    padding: 8px 10px !important;
+  }
+}
+
+::-webkit-scrollbar{
+  width: 12px;
+  background-color: #fff6cc;
+}
+::-webkit-scrollbar-track{
+  border-radius: 3px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb{
+  border-radius: 5px;
+  background-color: #f3b94c;
+  border:2px solid #eff1f5
+}
+
+.delete-comment-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.delete-comment-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.delete-comment-btn:active {
+  transform: scale(0.98);
+}
+
+.star {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+  .delete-comment-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+</style>
+</head>
+<body>
+
+ <header class="header">
+  <div class="logo">
+    <img src="logo.png" alt="Logo">
+  </div>
+  
+  <nav class="center-menu">
+    <ul class="menu">
+      <li class="letra">
+        <a href="index.html">
+          <i class="fas fa-home"></i>
+          <span>Inicial</span>
+        </a>
+      </li>
+      <li class="letra">
+        <a href="categorias.html">
+          <i class="fas fa-utensils"></i>
+          <span>Menu</span>
+        </a>
+      </li>
+      <li class="letra">
+        <a href="sobrenosversaonova.html">
+          <i class="fas fa-info-circle"></i>
+          <span>Sobre</span>
+        </a>
+      </li>
+      <li class="letra">
+        <a href="estabelecimentos.html">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Locais</span>
+        </a>
+      </li>
+      <li class="letra">
+        <a href="contatenosnovissimo.html">
+          <i class="fas fa-envelope"></i>
+          <span>Contato</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+   <div class="header-actions">
+  <div class="cart-icon" id="cartIcon">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" id="cartCount">0</span>
+    
+    <div class="cart-dropdown" id="cartDropdown">
+      <div class="cart-header">
+        <h3>Meu Carrinho</h3>
+      </div>
+      
+      <div class="cart-items" id="cartItems">
+        <div class="cart-empty">
+          Seu carrinho está vazio
+        </div>
+      </div>
+      
+      <div class="cart-footer" id="cartFooter" style="display: none;">
+        <div class="cart-total">
+          <span class="cart-total-label">Total:</span>
+          <span class="cart-total-value" id="cartTotal">R$ 0,00</span>
+        </div>
+        <button class="cart-checkout-btn" onclick="finalizarPedidosSeparados()">
+          Finalizar Pedido
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+<main>
+    <div class="restaurant-hero">
+      <img src="pizzaria1.jpg" alt="Restaurante" class="hero-image">
+      
+      <div class="hero-content">
+        <div class="restaurant-card">
+          <div class="restaurant-details">
+            <h1>Nome do Restaurante</h1>
+            
+            <div class="restaurant-meta">
+              <div class="rating-badge">
+                <i class="fas fa-star"></i>
+                0.0
+              </div>
+              <span class="meta-item">
+                <i class="fas fa-motorcycle"></i>
+                0 min
+              </span>
+              <span class="meta-item">
+                <i class="fas fa-dollar-sign"></i>
+                Pedido min. R$ 0,00
+              </span>
+              <span class="status-open">
+                <span class="status-dot"></span>
+                Verificando...
+              </span>
+            </div>
+            
+            <a href="#" target="_blank" class="restaurant-address">
+              <i class="fas fa-map-marker-alt"></i>
+              Carregando endereço...
+            </a>
+          </div>
+          
+          <div class="cta-buttons">
+            <a href="#" class="btn-primary" id="verCardapioBtn">
+              <i class="fas fa-utensils"></i>
+              Ver Cardápio
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="info-badges">
+      <div class="info-badge">
+        <i class="fas fa-motorcycle"></i>
+        <strong>Entrega</strong>
+        <p>-- minutos</p>
+        <small>Taxa: R$ --</small>
+      </div>
+      
+      <div class="info-badge">
+        <i class="fas fa-clock"></i>
+        <strong>Horário</strong>
+        <p>--:-- - --:--</p>
+        <small>--- a ---</small>
+      </div>
+      
+      <div class="info-badge">
+        <i class="fas fa-credit-card"></i>
+        <strong>Pagamento</strong>
+        <p>Carregando...</p>
+      </div>
+    </div>
+  
+    <div class="nav-tabs">
+      <div class="nav-tabs-inner">
+        <a href="#ofertas" class="nav-tab active">Ofertas</a>
+        <a href="#informacoes" class="nav-tab">Informações</a>
+        <a href="#avaliacoes" class="nav-tab">Avaliações</a>
+      </div>
+    </div>
+  
+    <div class="container">
+      <section id="ofertas" class="section">
+        <div class="section-header">
+          <h2 class="section-title">Ofertas Especiais</h2>
+          <p class="section-subtitle">Aproveite nossas promoções exclusivas</p>
+        </div>
+        
+        <div class="offers-grid">
+          <p style="text-align: center; color: #999;">Carregando ofertas...</p>
+        </div>
+      </section>
+  
+      <section id="informacoes" class="section">
+        <div class="section-header">
+          <h2 class="section-title">Informações</h2>
+          <p class="section-subtitle">Tudo que você precisa saber</p>
+        </div>
+        
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Localização</h3>
+            <p><strong>Endereço:</strong><br>Carregando...</p>
+            <a href="#" target="_blank" class="btn-primary">
+              <i class="fas fa-map-marked-alt"></i>
+              Abrir no Maps
+            </a>
+          </div>
+          
+          <div class="info-card">
+            <h3>Horário de Funcionamento</h3>
+            <p><strong>Carregando...</strong><br>--:-- - --:--</p>
+            <button class="btn-secondary" onclick="openScheduleModal()">
+              <i class="fas fa-calendar-alt"></i>
+              Ver Horários
+            </button>
+          </div>
+          
+          <div class="info-card">
+            <h3>Contato</h3>
+            <p><strong>Telefones:</strong><br>Carregando...</p>
+            <a href="#" class="btn-primary">
+              <i class="fab fa-whatsapp"></i>
+              Chamar no WhatsApp
+            </a>
+          </div>
+          
+          <div class="info-card">
+            <h3>Formas de Pagamento</h3>
+            <p>Aceitamos:</p>
+            <div class="payment-methods">
+              <span class="payment-method">Carregando...</span>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <h3>Área de Entrega</h3>
+            <p><strong>Tempo médio:</strong> -- minutos<br>
+            <strong>Taxa de entrega:</strong> R$ --<br>
+            <strong>Pedido mínimo:</strong> R$ --</p>
+            <div class="area-tags">
+              <span class="area-tag">Carregando...</span>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <h3>Especialidades</h3>
+            <p><strong>Nossas especialidades:</strong><br>Carregando...</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section map-section">
+        <div class="section-header">
+          <h2 class="section-title">Localização</h2>
+          <p class="section-subtitle">Encontre-nos no mapa</p>
+        </div>
+        <div class="map-container" id="mapContainer">
+          <p style="text-align: center; padding: 50px; color: #999;">Carregando mapa...</p>
+        </div>
+      </section>
+  
+      <section id="avaliacoes" class="section">
+        <div class="section-header">
+          <h2 class="section-title">Avaliações</h2>
+          <p class="section-subtitle">O que nossos clientes dizem</p>
+        </div>
+        
+        <div class="rating-overview">
+          <div class="rating-score">
+            <div class="score">0.0</div>
+            <div class="stars">★★★★★</div>
+            <div class="total">0 avaliações</div>
+          </div>
+          
+          <div class="rating-bars">
+            <div class="rating-bar">
+              <span>5</span>
+              <div class="bar-container">
+                <div class="bar-fill" style="width: 0%"></div>
+              </div>
+              <div class="bar-count">0</div>
+            </div>
+            <div class="rating-bar">
+              <span>4</span>
+              <div class="bar-container">
+                <div class="bar-fill" style="width: 0%"></div>
+              </div>
+              <div class="bar-count">0</div>
+            </div>
+            <div class="rating-bar">
+              <span>3</span>
+              <div class="bar-container">
+                <div class="bar-fill" style="width: 0%"></div>
+              </div>
+              <div class="bar-count">0</div>
+            </div>
+            <div class="rating-bar">
+              <span>2</span>
+              <div class="bar-container">
+                <div class="bar-fill" style="width: 0%"></div>
+              </div>
+              <div class="bar-count">0</div>
+            </div>
+            <div class="rating-bar">
+              <span>1</span>
+              <div class="bar-container">
+                <div class="bar-fill" style="width: 0%"></div>
+              </div>
+              <div class="bar-count">0</div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="comment-form">
+          <h3>Deixe sua avaliação</h3>
+          <form id="commentForm">
+            <div class="form-group">
+              <label>Sua nota:</label>
+              <div class="star-rating" id="starRating">
+                <span class="star" data-rating="1">★</span>
+                <span class="star" data-rating="2">★</span>
+                <span class="star" data-rating="3">★</span>
+                <span class="star" data-rating="4">★</span>
+                <span class="star" data-rating="5">★</span>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="name">Nome:</label>
+              <input type="text" id="name" placeholder="Digite seu nome" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="comment">Comentário:</label>
+              <textarea id="comment" placeholder="Conte sobre sua experiência..." required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-paper-plane"></i>
+              Enviar Avaliação
+            </button>
+          </form>
+        </div>
+  
+        <div class="comments-list" id="commentsList">
+          <div class="comment">
+            <div class="comment-header">
+              <span class="comment-author">Cliente Satisfeito</span>
+              <span class="comment-date">Recente</span>
+            </div>
+            <div class="comment-rating">★★★★★</div>
+            <p class="comment-text">Excelente estabelecimento! Recomendo.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  
+  <div id="scheduleModal" class="schedule-modal">
+    <div class="schedule-content">
+      <button class="close-modal" onclick="closeScheduleModal()">&times;</button>
+      <h2 class="schedule-title">Horário de Funcionamento</h2>
+      <div class="schedule-day">
+        <span class="day-name">Segunda-feira</span>
+        <span class="day-hours">Carregando...</span>
+      </div>
+      <div class="schedule-day">
+        <span class="day-name">Terça-feira</span>
+        <span class="day-hours">Carregando...</span>
+      </div>
+      <div class="schedule-day">
+        <span class="day-name">Quarta-feira</span>
+        <span class="day-hours">Carregando...</span>
+      </div>
+      <div class="schedule-day">
+        <span class="day-name">Quinta-feira</span>
+        <span class="day-hours">Carregando...</span>
+      </div>
+      <div class="schedule-day">
+        <span class="day-name">Sexta-feira</span>
+        <span class="day-hours">Carregando...</span>
+      </div>
+      <div class="schedule-day">
+        <span class="day-name">Sábado</span>
+        <span class="day-hours">Carregando...</span>
+      </div>
+      <div class="schedule-day">
+        <span class="day-name">Domingo</span>
+        <span class="day-hours">Carregando...</span>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="footer">
+    <div class="footer-content">
+    <div class="footer-section about-section">
+      <h3>Sobre Nós</h3>
+      <p>Oferecemos as melhores experiências gastronômicas com ingredientes frescos e sabores únicos.</p>
+      <div class="footer-social">
+        <a href="#" class="social-link">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.instagram.com/opalafood_p2?igsh=dGhrMjl6MzF6eHA2" class="social-link">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="social-link">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </div>
+    </div>
+    
+    <div class="footer-section contact-section">
+      <h3>Contato</h3>
+      <div class="contact-info">
+        <div class="contact-item">
+          <i class="fas fa-phone contact-icon"></i>
+          <span>(86) 9999-999</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope contact-icon"></i>
+          <span>opalafoodp2@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-logo">
+        <img src="logo.png" alt="Logo OpalaFood">
+        <span>OpalaFood</span>
+      </div>
+      <p>&copy; 2025 OpalaFood. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+
+    <script>
+
+// Sistema de armazenamento local
+const STORAGE_PREFIX = 'opala_avaliacoes_';
+
+function obterAvaliacoes(restauranteId) {
+  try {
+    const chave = `${STORAGE_PREFIX}${restauranteId}`;
+    const dados = localStorage.getItem(chave);
+    return dados ? JSON.parse(dados) : [];
+  } catch (error) {
+    console.log('Nenhuma avaliacao encontrada, retornando array vazio');
+    return [];
+  }
+}
+
+function salvarAvaliacao(restauranteId, avaliacao) {
+  try {
+    const chave = `${STORAGE_PREFIX}${restauranteId}`;
+    const avaliacoes = obterAvaliacoes(restauranteId);
+    avaliacoes.unshift(avaliacao);
+    localStorage.setItem(chave, JSON.stringify(avaliacoes));
+    return true;
+  } catch (error) {
+    console.error('Erro ao salvar avaliacao:', error);
+    alert('Erro ao salvar avaliacao. Tente novamente.');
+    return false;
+  }
+}
+
+function excluirAvaliacao(restauranteId, avaliacaoId) {
+  try {
+    const chave = `${STORAGE_PREFIX}${restauranteId}`;
+    let avaliacoes = obterAvaliacoes(restauranteId);
+    avaliacoes = avaliacoes.filter(av => av.id !== avaliacaoId);
+    localStorage.setItem(chave, JSON.stringify(avaliacoes));
+    return true;
+  } catch (error) {
+    console.error('Erro ao excluir avaliacao:', error);
+    alert('Erro ao excluir avaliacao. Tente novamente.');
+    return false;
+  }
+}
+
+function calcularMediaAvaliacoes(avaliacoes) {
+  if (avaliacoes.length === 0) return 0;
+  const soma = avaliacoes.reduce((acc, av) => acc + av.rating, 0);
+  return soma / avaliacoes.length;
+}
+
+function calcularDistribuicaoEstrelas(avaliacoes) {
+  const distribuicao = {5: 0, 4: 0, 3: 0, 2: 0, 1: 0};
+  
+  avaliacoes.forEach(av => {
+    distribuicao[av.rating]++;
+  });
+  
+  return distribuicao;
+}
+
+function atualizarEstatisticasAvaliacoes(restauranteId) {
+  const avaliacoes = obterAvaliacoes(restauranteId);
+  const media = calcularMediaAvaliacoes(avaliacoes);
+  const total = avaliacoes.length;
+  
+  document.querySelector('.rating-score .score').textContent = media.toFixed(1);
+  document.querySelector('.rating-score .total').textContent = `${total} avaliacoes`;
+  
+  const estrelasCheias = Math.floor(media);
+  const temMeiaEstrela = media % 1 >= 0.5;
+  let starsHTML = '';
+  
+  for (let i = 0; i < estrelasCheias; i++) {
+    starsHTML += '★';
+  }
+  if (temMeiaEstrela) {
+    starsHTML += '★';
+  }
+  while (starsHTML.length < 5) {
+    starsHTML += '☆';
+  }
+  
+  document.querySelector('.rating-score .stars').textContent = starsHTML;
+  
+  const distribuicao = calcularDistribuicaoEstrelas(avaliacoes);
+  const ratingBars = document.querySelectorAll('.rating-bar');
+  
+  ratingBars.forEach((bar, index) => {
+    const estrela = 5 - index;
+    const quantidade = distribuicao[estrela];
+    const porcentagem = total > 0 ? (quantidade / total) * 100 : 0;
+    bar.querySelector('.bar-fill').style.width = `${porcentagem}%`;
+    bar.querySelector('.bar-count').textContent = quantidade;
+  });
+}
+
+function carregarAvaliacoes(restauranteId) {
+  const commentsList = document.getElementById('commentsList');
+  
+  try {
+    const avaliacoes = obterAvaliacoes(restauranteId);
+    
+    if (avaliacoes.length === 0) {
+      commentsList.innerHTML = `
+        <div class="comment">
+          <div class="comment-header">
+            <span class="comment-author">Nenhuma avaliacao ainda</span>
+          </div>
+          <p class="comment-text">Seja o primeiro a avaliar este estabelecimento.</p>
+        </div>
+      `;
+      return;
+    }
+    
+    commentsList.innerHTML = avaliacoes.map(av => {
+      const dataFormatada = new Date(av.data).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      
+      return `
+        <div class="comment" data-id="${av.id}">
+          <div class="comment-header">
+            <span class="comment-author">${av.nome}</span>
+            <span class="comment-date">${dataFormatada}</span>
+          </div>
+          <div class="comment-rating">${'★'.repeat(av.rating)}${'☆'.repeat(5-av.rating)}</div>
+          <p class="comment-text">${av.comentario}</p>
+          <button class="delete-comment-btn" onclick="confirmarExclusao('${av.id}')">
+            <i class="fas fa-trash"></i> Excluir
+          </button>
+        </div>
+      `;
+    }).join('');
+  } catch (error) {
+    console.error('Erro ao carregar avaliacoes:', error);
+    commentsList.innerHTML = `
+      <div class="comment">
+        <div class="comment-header">
+          <span class="comment-author">Erro ao carregar avaliacoes</span>
+        </div>
+        <p class="comment-text">Tente recarregar a pagina.</p>
+      </div>
+    `;
+  }
+}
+
+function confirmarExclusao(avaliacaoId) {
+  if (confirm('Tem certeza que deseja excluir esta avaliacao?')) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const restauranteId = parseInt(urlParams.get('id'));
+    
+    const sucesso = excluirAvaliacao(restauranteId, avaliacaoId);
+    
+    if (sucesso) {
+      carregarAvaliacoes(restauranteId);
+      atualizarEstatisticasAvaliacoes(restauranteId);
+      alert('Avaliacao excluida com sucesso!');
+    }
+  }
+}
+
+function carregarDadosRestaurante() {
+  console.log('RESTAURANTES_DATA:', RESTAURANTES_DATA);
+  
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = parseInt(urlParams.get('id'));
+  
+  console.log('ID da URL:', id);
+  console.log('Dados do restaurante:', RESTAURANTES_DATA[id]);
+
+  if (!id || !RESTAURANTES_DATA[id]) {
+    alert('Restaurante não encontrado!');
+    window.location.href = 'estabelecimentos.html';
+    return;
+  }
+
+  const rest = RESTAURANTES_DATA[id];
+  
+  document.querySelector('.hero-image').src = rest.imagem;
+  document.querySelector('.restaurant-details h1').textContent = rest.nome;
+  document.title = `${rest.nome} - Perfil | OpalaFood`;
+
+  document.querySelector('.rating-badge').innerHTML = `
+    <i class="fas fa-star"></i>
+    ${rest.rating.toFixed(1)}
+  `;
+
+  const metaItems = document.querySelectorAll('.meta-item');
+  metaItems[0].innerHTML = `
+    <i class="fas fa-motorcycle"></i>
+    ${rest.tempoEntrega} min
+  `;
+  metaItems[1].innerHTML = `
+    <i class="fas fa-dollar-sign"></i>
+    Pedido min. R$ ${rest.pedidoMinimo.toFixed(2)}
+  `;
+
+  const statusOpen = document.querySelector('.status-open');
+  const agora = new Date();
+  const horaAtual = agora.getHours();
+  const minutoAtual = agora.getMinutes();
+  const diaAtual = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][agora.getDay()];
+  
+  const horaAbertura = rest.horarioAberturaHora * 60 + rest.horarioAberturaMin;
+  const horaFechamento = rest.horarioFechamentoHora * 60 + rest.horarioFechamentoMin;
+  const horaAtualMin = horaAtual * 60 + minutoAtual;
+  
+  const estaAberto = rest.diasFuncionamento.includes(diaAtual) && 
+                     horaAtualMin >= horaAbertura && 
+                     horaAtualMin <= horaFechamento;
+  
+  if (estaAberto) {
+    statusOpen.innerHTML = `
+      <span class="status-dot"></span>
+      Aberto agora
+    `;
+    statusOpen.style.color = 'var(--success)';
+  } else {
+    statusOpen.innerHTML = `
+      <span class="status-dot" style="background: #ef4444;"></span>
+      Fechado
+    `;
+    statusOpen.style.color = '#ef4444';
+  }
+
+  const enderecoLink = document.querySelector('.restaurant-address');
+  const enderecoCompleto = `${rest.endereco}, ${rest.bairro}, ${rest.cidade} - ${rest.estado}`;
+  enderecoLink.innerHTML = `
+    <i class="fas fa-map-marker-alt"></i>
+    ${enderecoCompleto}
+  `;
+  enderecoLink.href = `https://maps.google.com/?q=${encodeURIComponent(enderecoCompleto)}`;
+
+  const horaAbre = String(rest.horarioAberturaHora).padStart(2, '0');
+  const minAbre = String(rest.horarioAberturaMin).padStart(2, '0');
+  const horaFecha = String(rest.horarioFechamentoHora).padStart(2, '0');
+  const minFecha = String(rest.horarioFechamentoMin).padStart(2, '0');
+  const horarioCompleto = `${horaAbre}:${minAbre} - ${horaFecha}:${minFecha}`;
+
+  const infoBadges = document.querySelectorAll('.info-badge');
+  
+  infoBadges[0].innerHTML = `
+    <i class="fas fa-motorcycle"></i>
+    <strong>Entrega</strong>
+    <p>${rest.tempoEntrega} minutos</p>
+    <small>Taxa: R$ ${rest.taxaEntrega.toFixed(2)}</small>
+  `;
+
+  infoBadges[1].innerHTML = `
+    <i class="fas fa-clock"></i>
+    <strong>Horário</strong>
+    <p>${horarioCompleto}</p>
+    <small>${rest.diasFuncionamento[0].substring(0,3)} a ${rest.diasFuncionamento[rest.diasFuncionamento.length - 1].substring(0,3)}</small>
+  `;
+
+  infoBadges[2].innerHTML = `
+    <i class="fas fa-credit-card"></i>
+    <strong>Pagamento</strong>
+    <p>${rest.formasPagamento.slice(0,3).join(', ')}</p>
+    <small>${rest.formasPagamento.length > 3 ? 'E mais...' : 'Todas as formas'}</small>
+  `;
+
+  const infoCards = document.querySelectorAll('.info-card');
+  
+  infoCards[0].querySelector('p').innerHTML = `
+    <strong>Endereço:</strong><br>
+    ${rest.endereco}<br>
+    ${rest.bairro} - ${rest.cidade}, ${rest.estado}<br>
+    CEP: ${rest.cep}
+  `;
+  infoCards[0].querySelector('a').href = `https://maps.google.com/?q=${encodeURIComponent(enderecoCompleto)}`;
+
+  infoCards[1].querySelector('p').innerHTML = `
+    <strong>${rest.diasFuncionamento[0]} a ${rest.diasFuncionamento[rest.diasFuncionamento.length - 1]}</strong><br>
+    ${horarioCompleto}<br>
+    <em>${estaAberto ? 'Aberto agora' : 'Fechado no momento'}</em>
+  `;
+
+  infoCards[2].querySelector('p').innerHTML = `
+    <strong>Telefones:</strong><br>
+    WhatsApp: ${rest.telefone}<br>
+    ${rest.telefoneFixo ? `Fixo: ${rest.telefoneFixo}` : ''}
+  `;
+  const whatsappNum = rest.whatsapp.replace(/\D/g, '');
+  infoCards[2].querySelector('a').href = `https://wa.me/55${whatsappNum}`;
+
+  const paymentMethodsContainer = infoCards[3].querySelector('.payment-methods');
+  paymentMethodsContainer.innerHTML = rest.formasPagamento.map(forma => 
+    `<span class="payment-method">${forma}</span>`
+  ).join('');
+
+  infoCards[4].querySelector('p').innerHTML = `
+    <strong>Tempo médio:</strong> ${rest.tempoEntrega} minutos<br>
+    <strong>Taxa de entrega:</strong> R$ ${rest.taxaEntrega.toFixed(2)}<br>
+    <strong>Pedido mínimo:</strong> R$ ${rest.pedidoMinimo.toFixed(2)}
+  `;
+  
+  const areaTagsContainer = infoCards[4].querySelector('.area-tags');
+  areaTagsContainer.innerHTML = rest.bairrosEntrega.map(bairro => 
+    `<span class="area-tag">${bairro}</span>`
+  ).join('');
+
+  if (rest.especialidades && rest.especialidades.length > 0) {
+    infoCards[5].querySelector('p').innerHTML = `
+      <strong>Nossas especialidades:</strong><br>
+      ${rest.especialidades.join('<br>')}
+    `;
+  }
+
+  atualizarEstatisticasAvaliacoes(id);
+
+  const offersGrid = document.querySelector('.offers-grid');
+  if (rest.ofertas && rest.ofertas.length > 0) {
+    const ofertasAtivas = rest.ofertas.filter(oferta => oferta.ativo);
+    if (ofertasAtivas.length > 0) {
+      offersGrid.innerHTML = ofertasAtivas.map(oferta => `
+        <div class="offer-card">
+          <h3>${oferta.nome}</h3>
+          <p>${oferta.descricao}</p>
+          <div class="offer-price">
+            <span class="old-price">R$ ${oferta.precoOriginal.toFixed(2)}</span>
+            R$ ${oferta.precoPromocao.toFixed(2)}
+          </div>
+        </div>
+      `).join('');
+    } else {
+      document.querySelector('#ofertas').style.display = 'none';
+    }
+  } else {
+    document.querySelector('#ofertas').style.display = 'none';
+  }
+
+  const mapContainer = document.getElementById('mapContainer');
+  mapContainer.innerHTML = `
+    <iframe
+      src="https://maps.google.com/maps?q=${encodeURIComponent(enderecoCompleto)}&t=&z=16&ie=UTF8&iwloc=&output=embed"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+  `;
+
+  const scheduleContent = document.querySelector('#scheduleModal .schedule-content');
+  const diasSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
+  
+  const horariosDias = diasSemana.map(dia => {
+    const diaAbreviado = dia.split('-')[0];
+    const funciona = rest.diasFuncionamento.includes(diaAbreviado);
+    return `
+      <div class="schedule-day">
+        <span class="day-name">${dia}</span>
+        <span class="day-hours" style="${!funciona ? 'color: #ef4444;' : ''}">${funciona ? horarioCompleto : 'Fechado'}</span>
+      </div>
+    `;
+  }).join('');
+  
+  scheduleContent.innerHTML = `
+    <button class="close-modal" onclick="closeScheduleModal()">&times;</button>
+    <h2 class="schedule-title">Horário de Funcionamento</h2>
+    ${horariosDias}
+  `;
+
+  const btnCardapio = document.getElementById('verCardapioBtn');
+  if (btnCardapio) {
+    btnCardapio.href = `cardapio.html?id=${id}`;
+  }
+
+  const btnPedido = document.querySelector('.btn-secondary[href*="pedido"]');
+  if (btnPedido) {
+    btnPedido.href = `cardapio.html?id=${id}`;
+  }
+
+  carregarAvaliacoes(id);
+}
+
+let currentRating = 0;
+
+document.addEventListener('DOMContentLoaded', function() {
+  carregarDadosRestaurante();
+
+  document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', function() {
+      currentRating = parseInt(this.dataset.rating);
+      updateStars();
+    });
+
+    star.addEventListener('mouseover', function() {
+      const rating = parseInt(this.dataset.rating);
+      highlightStars(rating);
+    });
+  });
+
+  document.getElementById('starRating').addEventListener('mouseleave', function() {
+    updateStars();
+  });
+
+  document.getElementById('commentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    if (currentRating === 0) {
+      alert('Por favor, selecione uma avaliacao clicando nas estrelas!');
+      return;
+    }
+
+    const nome = document.getElementById('name').value.trim();
+    const comentario = document.getElementById('comment').value.trim();
+
+    if (!nome || !comentario) {
+      alert('Por favor, preencha todos os campos!');
+      return;
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const restauranteId = parseInt(urlParams.get('id'));
+
+    const novaAvaliacao = {
+      id: Date.now().toString(),
+      nome: nome,
+      rating: currentRating,
+      comentario: comentario,
+      data: new Date().toISOString()
+    };
+
+    const submitBtn = document.querySelector('.submit-btn');
+    const btnTextoOriginal = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+
+    const sucesso = salvarAvaliacao(restauranteId, novaAvaliacao);
+
+    if (sucesso) {
+      carregarAvaliacoes(restauranteId);
+      atualizarEstatisticasAvaliacoes(restauranteId);
+
+      document.getElementById('name').value = '';
+      document.getElementById('comment').value = '';
+      currentRating = 0;
+      updateStars();
+
+      alert('Avaliacao enviada com sucesso!');
+      
+      document.getElementById('avaliacoes').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = btnTextoOriginal;
+  });
+});
+
+function updateStars() {
+  document.querySelectorAll('.star').forEach((star, index) => {
+    if (index < currentRating) {
+      star.classList.add('active');
+    } else {
+      star.classList.remove('active');
+    }
+  });
+}
+
+function highlightStars(rating) {
+  document.querySelectorAll('.star').forEach((star, index) => {
+    if (index < rating) {
+      star.classList.add('active');
+    } else {
+      star.classList.remove('active');
+    }
+  });
+}
+
+function openScheduleModal() {
+  document.getElementById('scheduleModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeScheduleModal() {
+  document.getElementById('scheduleModal').classList.remove('show');
+  document.body.style.overflow = 'auto';
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById('scheduleModal');
+  if (event.target == modal) {
+    closeScheduleModal();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const socialLinks = document.querySelectorAll('.footer-social a, .social-links a');
+
+  socialLinks.forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      const url = this.href;
+      const icone = this.querySelector('i') ? this.querySelector('i').classList.value : '';
+
+      if (icone.includes('fa-whatsapp')) {
+        alert("O WhatsApp esta indisponivel no momento.");
+        return;
+      }
+
+      if (!url || url === '#') return;
+
+      const confirmacao = confirm("Voce esta prestes a sair do OpalaFood. Deseja continuar?");
+      if (confirmacao) {
+        window.open(url, '_blank');
+      }
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const currentPage = window.location.pathname.split('/').pop();
+  const menuLinks = document.querySelectorAll('.menu a');
+  
+  menuLinks.forEach(link => {
+    const linkPage = link.getAttribute('href');
+    
+    link.classList.remove('active');
+    
+    if (linkPage === currentPage) {
+      link.classList.add('active');
+    }
+    
+    if ((currentPage === '' || currentPage === 'index.html') && linkPage === 'perfil-restaurante.html') {
+      link.classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>

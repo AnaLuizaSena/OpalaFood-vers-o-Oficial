@@ -1,0 +1,68 @@
+
+===========================================
+FORMULÁRIO DE COLETA DE DADOS - RESTAURANTE
+===========================================
+
+DADOS BÁSICOS:
+- Nome do Restaurante: 
+- Categoria (pizzaria/lanchonete/sorveteria/etc): 
+- Especialidade principal: 
+
+LOCALIZAÇÃO:
+- Endereço completo: 
+- Bairro: 
+- CEP: 
+- Cidade: 
+- Estado: 
+
+CONTATO:
+- Telefone principal: 
+- Telefone fixo (se tiver): 
+- WhatsApp (mesmo que telefone): 
+- Email: 
+- Instagram: 
+
+FUNCIONAMENTO:
+- Dias que funciona: 
+- Horário de abertura: 
+- Horário de fechamento: 
+- Fecha em algum feriado? Qual: 
+
+ENTREGA:
+- Faz entrega? (Sim/Não): 
+- Tempo médio de entrega: 
+- Taxa de entrega: R$ 
+- Valor mínimo do pedido: R$ 
+- Bairros que entregam: 
+- Faz retirada no local? (Sim/Não): 
+
+PAGAMENTO:
+- Aceita dinheiro? 
+- Aceita cartão de débito? 
+- Aceita cartão de crédito? 
+- Aceita PIX? 
+- Dá troco para qual valor? 
+
+CARDÁPIO:
+(Para cada item do cardápio)
+
+ITEM 1:
+- Nome: 
+- Descrição: 
+- Categoria: 
+- Preço (P): R$ 
+- Preço (M): R$ 
+- Preço (G): R$ 
+- Ingredientes: 
+- Disponível? (Sim/Não): 
+
+
+
+PROMOÇÕES/OFERTAS:
+- Tem alguma promoção? Qual: 
+- Preço original: R$ 
+- Preço promocional: R$ 
+- Dias da promoção: 
+
+FOTOS:
+- Tirar foto da fachada (para logo)
