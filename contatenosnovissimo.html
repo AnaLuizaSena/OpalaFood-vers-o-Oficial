@@ -1330,6 +1330,1023 @@ header.header::before {
   background-color: #f3b94c;
   border:2px solid #eff1f5
 }
+ 
+ header.header {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 1rem 4rem;
+ background: linear-gradient(135deg, #ffffff 0%, #fff8f0 50%, #fff4e6 100%);
+ position: relative;
+ z-index: 1000;
+ border-bottom: 1px solid rgba(249, 115, 22, 0.15);
+ box-shadow: 0 2px 15px rgba(249, 115, 22, 0.08);
+ backdrop-filter: blur(10px);
+ transition: all 0.3s ease;
+ min-height: 80px;
+ }
+
+ header.header::before {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: linear-gradient(90deg, 
+ transparent 0%, 
+ rgba(249, 115, 22, 0.03) 25%, 
+ rgba(255, 168, 50, 0.03) 50%, 
+ rgba(249, 115, 22, 0.03) 75%, 
+ transparent 100%
+ );
+ z-index: -1;
+ animation: headerGlow 6s ease-in-out infinite;
+ }
+
+ @keyframes headerGlow {
+ 0%, 100% { opacity: 0.5; }
+ 50% { opacity: 1; }
+ }
+
+ .logo img {
+ width: 80px;
+ height: auto;
+ filter: drop-shadow(0 2px 8px rgba(249, 115, 22, 0.2));
+ transition: all 0.3s ease;
+ }
+
+ .center-menu {
+ flex-grow: 1;
+ display: flex;
+ justify-content: center;
+ position: relative;
+ }
+
+ .menu {
+ display: flex;
+ gap: 0.5rem;
+ list-style: none;
+ margin: 0;
+ padding: 8px 12px;
+ background: rgba(255, 255, 255, 0.8);
+ border-radius: 50px;
+ backdrop-filter: blur(10px);
+ box-shadow: 
+ 0 4px 20px rgba(249, 115, 22, 0.1),
+ inset 0 1px 0 rgba(255, 255, 255, 0.8);
+ border: 1px solid rgba(249, 115, 22, 0.1);
+ }
+
+ .menu li a {
+ text-decoration: none;
+ color: #666;
+ font-weight: 500;
+ transition: all 0.3s ease;
+ padding: 10px 18px;
+ border-radius: 25px;
+ position: relative;
+ display: flex;
+ align-items: center;
+ gap: 6px;
+ font-size: 14px;
+ overflow: hidden;
+ }
+
+ .menu li a::before {
+ content: '';
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ width: 0;
+ height: 0;
+ background: linear-gradient(135deg, #f97316, #ffb347);
+ border-radius: 50%;
+ transform: translate(-50%, -50%);
+ transition: all 0.4s ease;
+ z-index: -1;
+ }
+
+ .menu li a:hover::before {
+ width: 120%;
+ height: 150%;
+ }
+
+ .menu li a:hover {
+ font-weight: 600;
+ color: white;
+ transform: translateY(-2px);
+ box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
+ }
+
+ .menu li a.active {
+ color: white;
+ font-weight: 600;
+ background: linear-gradient(135deg, #f97316, #ffb347);
+ box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
+ }
+
+ .header-actions {
+ display: flex;
+ gap: 12px;
+ align-items: center;
+ }
+
+ /* Hero Section */
+ .hero-section {
+ background: linear-gradient(135deg, #fff8f0 0%, #fff4e6 50%, #fef7ed 100%);
+ padding: 4rem 2rem 3rem;
+ text-align: center;
+ position: relative;
+ overflow: hidden;
+ }
+
+ .hero-section::before {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background-image: 
+ radial-gradient(circle at 20% 30%, rgba(249, 115, 22, 0.08) 2px, transparent 2px),
+ radial-gradient(circle at 80% 70%, rgba(255, 168, 50, 0.08) 1px, transparent 1px);
+ background-size: 50px 50px, 30px 30px;
+ animation: float 15s ease-in-out infinite;
+ pointer-events: none;
+ }
+
+ @keyframes float {
+ 0%, 100% { transform: translateY(0px); }
+ 50% { transform: translateY(-10px); }
+ }
+
+ .hero-content {
+ max-width: 800px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 1;
+ }
+
+ .hero-section h1 {
+ color: rgb(243, 134, 10);
+ font-size: 3rem;
+ margin-bottom: 1rem;
+ font-weight: 700;
+ }
+
+ .hero-section p {
+ color: #666;
+ font-size: 1.2rem;
+ line-height: 1.6;
+ margin-bottom: 2rem;
+ }
+
+ /* Search Box */
+ .search-box {
+ max-width: 600px;
+ margin: 0 auto;
+ position: relative;
+ }
+
+ .search-box input {
+ width: 100%;
+ padding: 15px 50px 15px 20px;
+ border: 2px solid rgba(249, 115, 22, 0.2);
+ border-radius: 50px;
+ font-size: 16px;
+ outline: none;
+ transition: all 0.3s ease;
+ background: white;
+ }
+
+ .search-box input:focus {
+ border-color: #f97316;
+ box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
+ }
+
+ .search-icon {
+ position: absolute;
+ right: 20px;
+ top: 50%;
+ transform: translateY(-50%);
+ color: #f97316;
+ font-size: 18px;
+ }
+
+ /* FAQ Container */
+ .faq-container {
+ max-width: 900px;
+ margin: 3rem auto;
+ padding: 0 2rem;
+ }
+
+ .faq-categories {
+ display: flex;
+ gap: 1rem;
+ flex-wrap: wrap;
+ justify-content: center;
+ margin-bottom: 3rem;
+ }
+
+ .category-btn {
+ padding: 12px 24px;
+ border: 2px solid rgba(249, 115, 22, 0.2);
+ background: white;
+ color: #666;
+ border-radius: 25px;
+ cursor: pointer;
+ font-size: 14px;
+ font-weight: 600;
+ transition: all 0.3s ease;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ }
+
+ .category-btn:hover {
+ border-color: #f97316;
+ color: #f97316;
+ transform: translateY(-2px);
+ box-shadow: 0 4px 15px rgba(249, 115, 22, 0.2);
+ }
+
+ .category-btn.active {
+ background: linear-gradient(135deg, #f97316, #ffb347);
+ color: white;
+ border-color: #f97316;
+ box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+ }
+
+ /* FAQ Items */
+ .faq-section {
+ margin-bottom: 3rem;
+ }
+
+ .faq-section-title {
+ color: #f97316;
+ font-size: 1.8rem;
+ margin-bottom: 1.5rem;
+ font-weight: 700;
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ }
+
+ .faq-item {
+ background: white;
+ border: 2px solid rgba(249, 115, 22, 0.1);
+ border-radius: 15px;
+ margin-bottom: 1rem;
+ overflow: hidden;
+ transition: all 0.3s ease;
+ }
+
+ .faq-item:hover {
+ box-shadow: 0 4px 20px rgba(249, 115, 22, 0.15);
+ border-color: rgba(249, 115, 22, 0.3);
+ }
+
+ .faq-question {
+ padding: 1.5rem;
+ cursor: pointer;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ gap: 1rem;
+ user-select: none;
+ }
+
+ .faq-question h3 {
+ color: #333;
+ font-size: 1.1rem;
+ font-weight: 600;
+ flex: 1;
+ }
+
+ .faq-icon {
+ color: #f97316;
+ font-size: 20px;
+ transition: transform 0.3s ease;
+ flex-shrink: 0;
+ }
+
+ .faq-item.active .faq-icon {
+ transform: rotate(180deg);
+ }
+
+ .faq-answer {
+ max-height: 0;
+ overflow: hidden;
+ transition: max-height 0.3s ease;
+ }
+
+ .faq-answer-content {
+ padding: 0 1.5rem 1.5rem 1.5rem;
+ color: #666;
+ line-height: 1.8;
+ font-size: 15px;
+ }
+
+ .faq-item.active .faq-answer {
+ max-height: 500px;
+ }
+
+ /* Question Form Section */
+ .question-form-section {
+ background: linear-gradient(135deg, #fff8f0 0%, #fff4e6 100%);
+ padding: 4rem 2rem;
+ margin: 4rem 0 0;
+ }
+
+ .question-form-container {
+ max-width: 800px;
+ margin: 0 auto;
+ }
+
+ .question-form-header {
+ text-align: center;
+ margin-bottom: 2.5rem;
+ }
+
+ .question-form-header h2 {
+ color: #f97316;
+ font-size: 2.2rem;
+ margin-bottom: 1rem;
+ font-weight: 700;
+ }
+
+ .question-form-header p {
+ color: #666;
+ font-size: 1.1rem;
+ line-height: 1.6;
+ }
+
+ .question-form-content {
+ background: white;
+ border-radius: 20px;
+ padding: 2.5rem;
+ box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+ border: 2px solid rgba(249, 115, 22, 0.1);
+ }
+
+ .question-type-selector {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 1rem;
+ margin-bottom: 2rem;
+ }
+
+ .type-option {
+ padding: 1.5rem;
+ border: 2px solid rgba(249, 115, 22, 0.2);
+ border-radius: 15px;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ text-align: center;
+ background: white;
+ }
+
+ .type-option:hover {
+ border-color: #f97316;
+ transform: translateY(-2px);
+ box-shadow: 0 4px 15px rgba(249, 115, 22, 0.15);
+ }
+
+ .type-option.selected {
+ border-color: #f97316;
+ background: linear-gradient(135deg, rgba(249, 115, 22, 0.05), rgba(255, 168, 50, 0.05));
+ box-shadow: 0 4px 15px rgba(249, 115, 22, 0.2);
+ }
+
+ .type-option i {
+ font-size: 2rem;
+ color: #f97316;
+ margin-bottom: 0.5rem;
+ }
+
+ .type-option h3 {
+ color: #333;
+ font-size: 1.1rem;
+ margin-bottom: 0.3rem;
+ }
+
+ .type-option p {
+ color: #666;
+ font-size: 0.9rem;
+ margin: 0;
+ }
+
+ .form-section {
+ margin-bottom: 1.5rem;
+ }
+
+ .form-section label {
+ display: block;
+ color: #333;
+ font-weight: 600;
+ margin-bottom: 0.5rem;
+ font-size: 14px;
+ }
+
+ .form-section input,
+ .form-section textarea {
+ width: 100%;
+ padding: 12px 15px;
+ border: 2px solid #e0e0e0;
+ border-radius: 10px;
+ outline: none;
+ font-size: 14px;
+ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ background-color: #fafafa;
+ transition: all 0.3s ease;
+ }
+
+ .form-section input:focus,
+ .form-section textarea:focus {
+ border-color: #f97316;
+ background-color: white;
+ box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+ }
+
+ .form-section textarea {
+ resize: vertical;
+ min-height: 120px;
+ }
+
+ .additional-info {
+ background: rgba(249, 115, 22, 0.05);
+ padding: 1.5rem;
+ border-radius: 10px;
+ margin-bottom: 1.5rem;
+ display: none;
+ }
+
+ .additional-info.show {
+ display: block;
+ animation: slideDown 0.3s ease;
+ }
+
+ @keyframes slideDown {
+ from {
+ opacity: 0;
+ transform: translateY(-10px);
+ }
+ to {
+ opacity: 1;
+ transform: translateY(0);
+ }
+ }
+
+ .additional-info h4 {
+ color: #f97316;
+ font-size: 1rem;
+ margin-bottom: 1rem;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ }
+
+ .form-row {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 1rem;
+ }
+
+ .submit-btn {
+ width: 100%;
+ padding: 15px 30px;
+ background: linear-gradient(135deg, #f97316, #ffb347);
+ color: white;
+ border: none;
+ border-radius: 25px;
+ font-size: 16px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 10px;
+ }
+
+ .submit-btn:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+ }
+
+ .submit-btn:active {
+ transform: translateY(0);
+ }
+
+ .submit-btn:disabled {
+ background: #ccc;
+ cursor: not-allowed;
+ transform: none;
+ }
+
+ .feedback-message {
+ display: none;
+ padding: 1rem;
+ border-radius: 10px;
+ margin-bottom: 1rem;
+ font-weight: 500;
+ animation: slideDown 0.3s ease;
+ }
+
+ .feedback-message.success {
+ background: #f0fdf4;
+ border: 2px solid #86efac;
+ color: #166534;
+ }
+
+ .feedback-message.error {
+ background: #fef2f2;
+ border: 2px solid #fca5a5;
+ color: #991b1b;
+ }
+
+ .feedback-message.show {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ }
+
+ /* Help Section */
+ .help-section {
+ background: linear-gradient(135deg, #fff8f0 0%, #fff4e6 100%);
+ padding: 3rem 2rem;
+ margin: 0;
+ text-align: center;
+ }
+
+ .help-content {
+ max-width: 700px;
+ margin: 0 auto;
+ }
+
+ .help-section h2 {
+ color: #f97316;
+ font-size: 2rem;
+ margin-bottom: 1rem;
+ }
+
+ .help-section p {
+ color: #666;
+ font-size: 1.1rem;
+ margin-bottom: 2rem;
+ line-height: 1.6;
+ }
+
+ .help-buttons {
+ display: flex;
+ gap: 1rem;
+ justify-content: center;
+ flex-wrap: wrap;
+ }
+
+ .help-btn {
+ padding: 15px 30px;
+ border: none;
+ border-radius: 25px;
+ font-size: 16px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ text-decoration: none;
+ }
+
+ .help-btn.primary {
+ background: linear-gradient(135deg, #f97316, #ffb347);
+ color: white;
+ box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+ }
+
+ .help-btn.primary:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+ }
+
+ .help-btn.secondary {
+ background: white;
+ color: #f97316;
+ border: 2px solid #f97316;
+ }
+
+ .help-btn.secondary:hover {
+ background: #f97316;
+ color: white;
+ transform: translateY(-2px);
+ }
+
+ /* Footer */
+ footer.footer {
+ background: linear-gradient(135deg, #fef7ed 0%, #fff8f0 50%, #fefbf7 100%);
+ border-top: 1px solid rgba(249, 115, 22, 0.2);
+ margin-top: 0;
+ padding: 40px 0 30px;
+ width: 100%;
+ min-height: 180px;
+ position: relative;
+ box-sizing: border-box;
+ }
+
+ .footer-content {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 0 2rem;
+ display: grid;
+ grid-template-columns: 1.5fr 1fr;
+ gap: 60px;
+ align-items: start;
+ min-height: 120px;
+ box-sizing: border-box;
+ }
+
+ .footer-section h3 {
+ color: #f97316;
+ font-size: 1.3rem;
+ font-weight: 700;
+ margin-bottom: 20px;
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+ position: relative;
+ }
+
+ .footer-section h3::after {
+ content: '';
+ display: block;
+ width: 40px;
+ height: 2px;
+ background: #f97316;
+ margin-top: 8px;
+ }
+
+ .about-section p {
+ color: #6b7280;
+ line-height: 1.7;
+ margin-bottom: 25px;
+ font-size: 15px;
+ }
+
+ .footer-social {
+ display: flex;
+ gap: 12px;
+ }
+
+ .social-link {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 40px;
+ height: 40px;
+ background: #ffffff;
+ border-radius: 8px;
+ color: #6b7280;
+ text-decoration: none;
+ transition: all 0.3s ease;
+ border: 1px solid #fed7aa;
+ font-size: 16px;
+ }
+
+ .social-link:hover {
+ color: white;
+ background: #f97316;
+ transform: translateY(-2px);
+ }
+
+ .contact-info {
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ }
+
+ .contact-item {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ color: #6b7280;
+ font-size: 14px;
+ }
+
+ .contact-icon {
+ color: #f97316;
+ width: 16px;
+ text-align: center;
+ font-size: 14px;
+ }
+
+ .footer-bottom {
+ margin-top: 30px;
+ padding-top: 20px;
+ border-top: 1px solid rgba(249, 115, 22, 0.2);
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ flex-wrap: wrap;
+ gap: 20px;
+ max-width: 1200px;
+ margin-left: auto;
+ margin-right: auto;
+ padding-left: 2rem;
+ padding-right: 2rem;
+ min-height: 40px;
+ box-sizing: border-box;
+ }
+
+ .footer-bottom p {
+ color: #9ca3af;
+ margin: 0;
+ font-size: 13px;
+ }
+
+ .footer-logo {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ }
+
+ .footer-logo img {
+ width: 35px;
+ height: auto;
+ }
+
+ .footer-logo span {
+ color: #f97316;
+ font-weight: 600;
+ font-size: 1.1rem;
+ }
+
+ /* User Profile Dropdown */
+ .user-profile-dropdown {
+ position: relative;
+ }
+
+ .profile-trigger {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ padding: 8px 15px;
+ background: rgba(255, 255, 255, 0.9);
+ border-radius: 25px;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ border: 2px solid rgba(249, 115, 22, 0.2);
+ }
+
+ .profile-trigger:hover {
+ background: white;
+ border-color: #f97316;
+ box-shadow: 0 4px 15px rgba(249, 115, 22, 0.2);
+ }
+
+ .profile-avatar {
+ width: 35px;
+ height: 35px;
+ border-radius: 50%;
+ background: linear-gradient(135deg, #f97316, #ff8c42);
+ color: white;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-weight: 600;
+ font-size: 14px;
+ border: 2px solid white;
+ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .profile-info {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ }
+
+ .profile-name {
+ font-weight: 600;
+ color: #333;
+ font-size: 14px;
+ line-height: 1;
+ margin-bottom: 2px;
+ }
+
+ .profile-role {
+ font-size: 11px;
+ color: #666;
+ background: rgba(249, 115, 22, 0.1);
+ padding: 2px 8px;
+ border-radius: 10px;
+ font-weight: 500;
+ }
+
+ .profile-arrow {
+ color: #999;
+ font-size: 12px;
+ transition: transform 0.3s ease;
+ }
+
+ .profile-trigger.active .profile-arrow {
+ transform: rotate(180deg);
+ }
+
+ .profile-menu {
+ position: absolute;
+ top: calc(100% + 10px);
+ right: 0;
+ background: white;
+ border-radius: 15px;
+ box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+ min-width: 280px;
+ opacity: 0;
+ visibility: hidden;
+ transform: translateY(-10px);
+ transition: all 0.3s ease;
+ z-index: 1000;
+ border: 1px solid rgba(249, 115, 22, 0.1);
+ }
+
+ .profile-menu.show {
+ opacity: 1;
+ visibility: visible;
+ transform: translateY(0);
+ }
+
+ .profile-menu-header {
+ padding: 20px;
+ border-bottom: 1px solid #f3f4f6;
+ background: linear-gradient(135deg, rgba(249, 115, 22, 0.05), rgba(255, 255, 255, 0.9));
+ }
+
+ .profile-menu-name {
+ font-weight: 600;
+ color: #333;
+ font-size: 16px;
+ margin-bottom: 4px;
+ }
+
+ .profile-menu-email {
+ color: #666;
+ font-size: 13px;
+ word-break: break-all;
+ }
+
+ .profile-menu-items {
+ padding: 10px;
+ }
+
+ .profile-menu-item {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ padding: 12px 15px;
+ color: #666;
+ text-decoration: none;
+ border-radius: 10px;
+ transition: all 0.3s ease;
+ font-size: 14px;
+ cursor: pointer;
+ }
+
+ .profile-menu-item:hover {
+ background: rgba(249, 115, 22, 0.1);
+ color: #f97316;
+ }
+
+ .profile-menu-item i {
+ width: 20px;
+ text-align: center;
+ font-size: 16px;
+ }
+
+ .profile-menu-divider {
+ height: 1px;
+ background: #f3f4f6;
+ margin: 10px 15px;
+ }
+
+ .profile-menu-item.logout {
+ color: #ef4444;
+ }
+
+ .profile-menu-item.logout:hover {
+ background: rgba(239, 68, 68, 0.1);
+ color: #dc2626;
+ }
+
+ /* Responsividade */
+ @media (max-width: 1024px) {
+ header.header {
+ padding: 1rem 2rem;
+ }
+ 
+ .menu {
+ gap: 0.2rem;
+ }
+ 
+ .menu li a {
+ padding: 8px 14px;
+ font-size: 13px;
+ }
+ }
+
+ @media (max-width: 768px) {
+ header.header {
+ padding: 1rem;
+ flex-direction: column;
+ gap: 1rem;
+ }
+ 
+ .menu {
+ flex-wrap: wrap;
+ justify-content: center;
+ padding: 8px;
+ }
+ 
+ .menu li a {
+ padding: 8px 12px;
+ font-size: 12px;
+ }
+
+ .hero-section h1 {
+ font-size: 2.2rem;
+ }
+
+ .hero-section p {
+ font-size: 1rem;
+ }
+
+ .faq-section-title {
+ font-size: 1.5rem;
+ }
+
+ .faq-categories {
+ gap: 0.5rem;
+ }
+
+ .category-btn {
+ padding: 10px 18px;
+ font-size: 13px;
+ }
+
+ .question-type-selector {
+ grid-template-columns: 1fr;
+ }
+
+ .form-row {
+ grid-template-columns: 1fr;
+ }
+
+ .question-form-content {
+ padding: 1.5rem;
+ }
+
+ .footer-content {
+ grid-template-columns: 1fr;
+ gap: 40px;
+ padding: 0 1.5rem;
+ }
+ 
+ .footer-bottom {
+ flex-direction: column;
+ text-align: center;
+ padding-left: 1.5rem;
+ padding-right: 1.5rem;
+ }
+
+ .profile-info {
+ display: none;
+ }
+ 
+ .profile-trigger {
+ padding: 8px;
+ }
+ }
+
+ @media (max-width: 480px) {
+ .hero-section h1 {
+ font-size: 1.8rem;
+ }
+
+ .faq-container {
+ padding: 0 1rem;
+ }
+
+ .help-buttons {
+ flex-direction: column;
+ }
+
+ .help-btn {
+ width: 100%;
+ justify-content: center;
+ }
+
+ .question-form-section {
+ padding: 2rem 1rem;
+ }
+ }
     </style>
     <script>
       const URL_APPS_SCRIPT="https://script.google.com/macros/s/AKfycbwrWej2LSkJUExQ_1GViGuMJx9vqRRkn7xoKos6fvmlgXBeprPN_V5VQA-vPLwqQKNGPg/exec";
@@ -1405,6 +2422,272 @@ header.header::before {
   </div>
 </div>
 </header>
+ <i class="fas fa-chevron-down profile-arrow"></i>
+ </div>
+
+ <div class="profile-menu" id="profileMenu">
+ <div class="profile-menu-header">
+ <div class="profile-menu-name" id="menuProfileName">Nome do Usuário</div>
+ <div class="profile-menu-email" id="menuProfileEmail">email@exemplo.com</div>
+ </div>
+ 
+ <div class="profile-menu-items">
+ <a href="perfil-usuario.html" class="profile-menu-item">
+ <i class="fas fa-user"></i>
+ <span>Meu Perfil</span>
+ </a>
+ 
+ <a href="configuracoes.html" class="profile-menu-item">
+ <i class="fas fa-cog"></i>
+ <span>Configurações</span>
+ </a>
+ 
+ <div class="profile-menu-divider"></div>
+ 
+ <div class="profile-menu-item logout" id="logoutBtn">
+ <i class="fas fa-sign-out-alt"></i>
+ <span>Sair</span>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero-section">
+ <div class="hero-content">
+ <h1>Perguntas Frequentes</h1>
+ <p>Encontre respostas rápidas para as dúvidas mais comuns sobre o OpalaFood</p>
+ 
+ <div class="search-box">
+ <input type="text" id="searchInput" placeholder="Busque sua dúvida aqui...">
+ <i class="fas fa-search search-icon"></i>
+ </div>
+ </div>
+</section>
+
+<!-- FAQ Categories -->
+<div class="faq-container">
+ <div class="faq-categories">
+ <button class="category-btn active" data-category="todos">
+ <i class="fas fa-list"></i> Todos
+ </button>
+ <button class="category-btn" data-category="pedidos">
+ <i class="fas fa-shopping-bag"></i> Pedidos
+ </button>
+ <button class="category-btn" data-category="pagamento">
+ <i class="fas fa-credit-card"></i> Pagamento
+ </button>
+ <button class="category-btn" data-category="entrega">
+ <i class="fas fa-truck"></i> Entrega
+ </button>
+ <button class="category-btn" data-category="conta">
+ <i class="fas fa-user-circle"></i> Conta
+ </button>
+ </div>
+
+ <!-- FAQ Sections -->
+ <div id="faqContent">
+ <!-- Pedidos -->
+ <div class="faq-section" data-category="pedidos">
+ <h2 class="faq-section-title">
+ <i class="fas fa-shopping-bag"></i>
+ Pedidos
+ </h2>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Como faço para realizar um pedido no OpalaFood?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ É muito simples! Primeiro, escolha o restaurante de sua preferência na página inicial. Navegue pelo cardápio, selecione os itens que deseja e adicione ao carrinho. Após revisar seu pedido, escolha a forma de pagamento e o endereço de entrega. Por fim, confirme o pedido e acompanhe em tempo real pelo aplicativo.
+ </div>
+ </div>
+ </div>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Posso cancelar meu pedido depois de confirmado?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ Sim, você pode cancelar seu pedido gratuitamente antes que o restaurante confirme o preparo. Após a confirmação, o cancelamento pode estar sujeito a taxas. Para cancelar, acesse "Meus Pedidos" e clique em "Cancelar Pedido".
+ </div>
+ </div>
+ </div>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Qual o valor mínimo para fazer um pedido?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ O valor mínimo varia de acordo com cada estabelecimento. Você pode verificar essa informação na página do restaurante, logo abaixo do nome. Geralmente, o valor mínimo fica entre R$ 15,00 e R$ 25,00, dependendo do restaurante escolhido.
+ </div>
+ </div>
+ </div>
+
+
+ <!-- Pagamento -->
+ <div class="faq-section" data-category="pagamento">
+ <h2 class="faq-section-title">
+ <i class="fas fa-credit-card"></i>
+ Pagamento
+ </h2>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Quais formas de pagamento são aceitas?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ Aceitamos diversas formas de pagamento: cartão de crédito, cartão de débito, Pix, dinheiro e vale-refeição (para estabelecimentos credenciados). Você pode salvar seus cartões na plataforma para agilizar futuros pedidos. O pagamento em dinheiro deve ser informado no pedido, incluindo o valor para troco, se necessário.
+ </div>
+ </div>
+ </div>
+
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Como funciona o pagamento por Pix?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ Ao escolher Pix como forma de pagamento, você receberá um QR Code na tela de confirmação. Basta abrir o aplicativo do seu banco, escanear o código e confirmar o pagamento. O pedido só será enviado ao restaurante após a confirmação do pagamento, que geralmente ocorre em poucos segundos.
+ </div>
+ </div>
+ </div>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Posso parcelar minha compra?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ Atualmente, o OpalaFood não oferece parcelamento direto na plataforma. No entanto, você pode verificar com sua operadora de cartão se há a opção de parcelamento após a compra. Algumas operadoras oferecem esse serviço através do aplicativo do banco.
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Entrega -->
+ <div class="faq-section" data-category="entrega">
+ <h2 class="faq-section-title">
+ <i class="fas fa-truck"></i>
+ Entrega
+ </h2>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Qual o tempo médio de entrega?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ O tempo de entrega varia entre 30 a 60 minutos, dependendo do restaurante escolhido, distância e horário do pedido. Você pode ver o tempo estimado na página do estabelecimento antes de fazer o pedido. Durante horários de pico (almoço e jantar), o tempo pode ser um pouco maior.
+ </div>
+ </div>
+ </div>
+
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Vocês entregam em toda cidade?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ Sim! Atendemos toda a cidade de Pedro II. Alguns restaurantes podem ter áreas de entrega específicas ou cobrar taxa adicional para regiões mais distantes. Você pode verificar a disponibilidade digitando seu endereço na página inicial antes de escolher o restaurante.
+ </div>
+ </div>
+ </div>
+ 
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>O que fazer se meu pedido atrasar?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ Se seu pedido ultrapassar o tempo previsto em mais de 15 minutos, entre em contato com nosso suporte através do chat no aplicativo ou pelo WhatsApp. Nossa equipe verificará o status com o restaurante e entregador e tomará as providências necessárias para resolver a situação rapidamente.
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Conta -->
+ <div class="faq-section" data-category="conta">
+ <h2 class="faq-section-title">
+ <i class="fas fa-user-circle"></i>
+ Conta e Perfil
+ </h2>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Como criar uma conta no OpalaFood?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ Criar sua conta é simples e rápido! Clique em "Cadastrar" no canto superior direito, preencha seus dados básicos (nome, e-mail, telefone e senha), confirme seu e-mail e pronto! Você também pode fazer login usando suas contas do Google ou Facebook para mais praticidade.
+ </div>
+ </div>
+ </div>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Esqueci minha senha, como recupero?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ Na tela de login, clique em "Esqueci minha senha". Digite o e-mail cadastrado e você receberá um link para redefinir sua senha. Caso não receba o e-mail em alguns minutos, verifique sua caixa de spam ou entre em contato com nosso suporte.
+ </div>
+ </div>
+ </div>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Como atualizar meus dados cadastrais?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ </div>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Posso ter mais de uma conta?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ Recomendamos manter apenas uma conta por usuário para facilitar o gerenciamento de pedidos e aproveitar melhor nossos programas de fidelidade. Se precisar fazer pedidos para diferentes endereços, você pode cadastrar múltiplos endereços na mesma conta.
+ </div>
+ </div>
+ </div>
+
+ <div class="faq-item">
+ <div class="faq-question">
+ <h3>Como faço para excluir minha conta?</h3>
+ <i class="fas fa-chevron-down faq-icon"></i>
+ </div>
+ <div class="faq-answer">
+ <div class="faq-answer-content">
+ Se deseja excluir sua conta, acesse "Configurações" > "Privacidade e Segurança" > "Excluir Conta". Lembre-se que esta ação é irreversível e todos os seus dados, histórico de pedidos e cupons serão permanentemente removidos. Se tiver pedidos pendentes, aguarde a conclusão antes de excluir.
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
 
   <div class="main-content">
     <div class="content-left">
@@ -1455,6 +2738,7 @@ header.header::before {
 </div>
     </div>
   </div>
+</div>
 
   <footer class="footer">
     <div class="footer-content">
@@ -1499,6 +2783,252 @@ header.header::before {
   </footer>
 
  <script>
+// Profile Dropdown
+ document.addEventListener('DOMContentLoaded', function() {
+ const perfilUsuario = JSON.parse(localStorage.getItem('perfilUsuario'));
+ 
+ if (perfilUsuario) {
+ const profileName = document.getElementById('profileName');
+ const profileRole = document.getElementById('profileRole');
+ const profileAvatar = document.getElementById('profileAvatar');
+ const menuProfileName = document.getElementById('menuProfileName');
+ const menuProfileEmail = document.getElementById('menuProfileEmail');
+ 
+ if (profileName) profileName.textContent = perfilUsuario.nome.split(' ')[0];
+ if (menuProfileName) menuProfileName.textContent = perfilUsuario.nome;
+ if (menuProfileEmail) menuProfileEmail.textContent = perfilUsuario.email;
+ 
+ const roleTexts = {
+ 'cliente': 'Cliente',
+ 'dono': 'Proprietário',
+ 'admin': 'Administrador'
+ };
+ if (profileRole) profileRole.textContent = roleTexts[perfilUsuario.tipo] || 'Cliente';
+ 
+ const iniciais = perfilUsuario.nome
+ .split(' ')
+ .map(n => n[0])
+ .slice(0, 2)
+ .join('')
+ .toUpperCase();
+ if (profileAvatar) profileAvatar.textContent = iniciais;
+ }
+ 
+ const profileTrigger = document.getElementById('profileTrigger');
+ const profileMenu = document.getElementById('profileMenu');
+ 
+ if (profileTrigger && profileMenu) {
+ profileTrigger.addEventListener('click', function(e) {
+ e.stopPropagation();
+ profileTrigger.classList.toggle('active');
+ profileMenu.classList.toggle('show');
+ });
+ 
+ document.addEventListener('click', function(e) {
+ if (!profileTrigger.contains(e.target) && !profileMenu.contains(e.target)) {
+ profileTrigger.classList.remove('active');
+ profileMenu.classList.remove('show');
+ }
+ });
+ }
+ 
+ const logoutBtn = document.getElementById('logoutBtn');
+ if (logoutBtn) {
+ logoutBtn.addEventListener('click', function() {
+ if (confirm('Tem certeza que deseja sair?')) {
+ localStorage.removeItem('perfilUsuario');
+ window.location.href = 'cadastro-teste1.html';
+ }
+ });
+ }
+ });
+
+ // FAQ Accordion
+ const faqItems = document.querySelectorAll('.faq-item');
+ 
+ faqItems.forEach(item => {
+ const question = item.querySelector('.faq-question');
+ 
+ question.addEventListener('click', () => {
+ const isActive = item.classList.contains('active');
+ 
+ // Fechar todos os itens
+ faqItems.forEach(faq => faq.classList.remove('active'));
+ 
+ // Abrir o item clicado se não estava ativo
+ if (!isActive) {
+ item.classList.add('active');
+ }
+ });
+ });
+
+ // Category Filter
+ const categoryBtns = document.querySelectorAll('.category-btn');
+ const faqSections = document.querySelectorAll('.faq-section');
+ 
+ categoryBtns.forEach(btn => {
+ btn.addEventListener('click', () => {
+ const category = btn.dataset.category;
+ 
+ // Atualizar botão ativo
+ categoryBtns.forEach(b => b.classList.remove('active'));
+ btn.classList.add('active');
+ 
+ // Filtrar seções
+ if (category === 'todos') {
+ faqSections.forEach(section => section.style.display = 'block');
+ } else {
+ faqSections.forEach(section => {
+ if (section.dataset.category === category) {
+ section.style.display = 'block';
+ } else {
+ section.style.display = 'none';
+ }
+ });
+ }
+ 
+ // Fechar todos os itens abertos
+ faqItems.forEach(item => item.classList.remove('active'));
+ });
+ });
+
+ // Search Functionality
+ const searchInput = document.getElementById('searchInput');
+ 
+ searchInput.addEventListener('input', (e) => {
+ const searchTerm = e.target.value.toLowerCase().trim();
+ 
+ if (searchTerm === '') {
+ // Mostrar todas as seções
+ faqSections.forEach(section => section.style.display = 'block');
+ faqItems.forEach(item => {
+ item.style.display = 'block';
+ item.classList.remove('active');
+ });
+ return;
+ }
+ 
+ let hasResults = false;
+ 
+ faqItems.forEach(item => {
+ const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+ const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+ 
+ if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+ item.style.display = 'block';
+ hasResults = true;
+ 
+ // Abrir automaticamente itens que correspondem à busca
+ if (answer.includes(searchTerm)) {
+ item.classList.add('active');
+ }
+ } else {
+ item.style.display = 'none';
+ item.classList.remove('active');
+ }
+ });
+ 
+ // Mostrar/ocultar seções baseado em resultados
+ faqSections.forEach(section => {
+ const visibleItems = section.querySelectorAll('.faq-item[style="display: block;"]');
+ section.style.display = visibleItems.length > 0 ? 'block' : 'none';
+ });
+ });
+
+ // Question Type Selector
+ const typeOptions = document.querySelectorAll('.type-option');
+ const additionalInfo = document.getElementById('additionalInfo');
+ const emailInput = document.getElementById('perguntaEmail');
+ const telefoneInput = document.getElementById('perguntaTelefone');
+ 
+ let selectedType = 'rapida';
+ 
+ typeOptions.forEach(option => {
+ option.addEventListener('click', () => {
+ typeOptions.forEach(opt => opt.classList.remove('selected'));
+ option.classList.add('selected');
+ selectedType = option.dataset.type;
+ 
+ if (selectedType === 'detalhada') {
+ additionalInfo.classList.add('show');
+ emailInput.required = true;
+ telefoneInput.required = true;
+ } else {
+ additionalInfo.classList.remove('show');
+ emailInput.required = false;
+ telefoneInput.required = false;
+ }
+ });
+ });
+
+ // Question Form Submission
+ const questionForm = document.getElementById('questionForm');
+ const feedbackMessage = document.getElementById('feedbackMessage');
+ const submitBtn = document.getElementById('submitBtn');
+
+ questionForm.addEventListener('submit', function(e) { // ✅ CORRIGIDO AQUI
+ e.preventDefault(); // ← NECESSÁRIO PARA NÃO RECARREGAR
+ 
+ const nome = document.getElementById('perguntaNome').value.trim();
+ const duvida = document.getElementById('perguntaDuvida').value.trim();
+ const email = document.getElementById('perguntaEmail').value.trim();
+ const telefone = document.getElementById('perguntaTelefone').value.trim();
+
+ // Validação básica
+ if (!nome || !duvida) {
+ showFeedback('Por favor, preencha todos os campos obrigatórios.', 'error');
+ return;
+ }
+
+ if (selectedType === 'detalhada' && (!email || !telefone)) {
+ showFeedback('Para suporte detalhado, é necessário informar e-mail e telefone.', 'error');
+ return;
+ }
+
+ // Simular envio
+ submitBtn.disabled = true;
+ submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+ setTimeout(() => {
+ showFeedback('✅ Sua pergunta foi enviada com sucesso! Responderemos em breve.', 'success');
+ 
+ // Limpar formulário
+ questionForm.reset();
+ typeOptions[0].click(); // Voltar para "Pergunta Rápida"
+ 
+ submitBtn.disabled = false;
+ submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Pergunta';
+
+ // Ocultar mensagem após 5 segundos
+ setTimeout(() => {
+ feedbackMessage.classList.remove('show');
+ }, 5000);
+ }, 1500);
+ });
+
+ function showFeedback(message, type) {
+ feedbackMessage.textContent = message;
+ feedbackMessage.className = `feedback-message ${type} show`;
+ feedbackMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+ }
+
+ // Máscara para telefone
+ const telefoneInput2 = document.getElementById('perguntaTelefone');
+ telefoneInput2.addEventListener('input', function(e) {
+ let value = e.target.value.replace(/\D/g, '');
+ if (value.length > 11) value = value.slice(0, 11);
+ 
+ if (value.length > 6) {
+ value = value.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3');
+ } else if (value.length > 2) {
+ value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+ } else if (value.length > 0) {
+ value = value.replace(/^(\d*)/, '($1');
+ }
+ 
+ e.target.value = value;
+ });
+
   const formulario = document.getElementById('formularioContato');
   const feedback = document.getElementById('mensagem-feedback');
 
@@ -1574,7 +3104,7 @@ header.header::before {
       link.addEventListener('click', function(event) {
         event.preventDefault();
 
-        const url = this.href;
+        const url = "https://wa.me/5586994906183";
         const icone =
         this.querySelector('i') ?
         this.querySelector('i').classList.value
@@ -1584,7 +3114,7 @@ header.header::before {
           alert("O WhatsApp está indisponível no momento.");
           return;
         }
-        if (!url || url === '#') return;
+        if (!url || url === 'https://wa.me/5586994906183') return;
 
         const confirmacao = confirm("Você está prestes a sair do site OpalaFood e será redirecionado para outra página. Deseja continuar?");
        
@@ -1746,6 +3276,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
-
 
 
