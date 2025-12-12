@@ -1921,7 +1921,7 @@ a,
       <li class="letra">
         <a href="estabelecimentos.html">
           <i class="fas fa-map-marker-alt"></i>
-          <span>Locais</span>
+          <span>Estabelecimentos</span>
         </a>
       </li>
          <li class="letra">
@@ -2265,8 +2265,8 @@ a,
       <p>Oferecemos as melhores experiências gastronômicas com ingredientes frescos e sabores únicos.</p>
       <div class="footer-social">
         <a href="https://wa.me/5586994906183" class="social-link" target="_blank">
-          <i class="fab fa-whatsapp"></i>
-        </a>
+  <i class="fab fa-whatsapp"></i>
+</a>
         <a href="https://www.instagram.com/opalafood_p2?igsh=dGhrMjl6MzF6eHA2" class="social-link">
           <i class="fab fa-instagram"></i>
         </a>
@@ -2833,6 +2833,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const socialLinks = document.querySelectorAll('.footer-social a, .social-links a');
+
+    socialLinks.forEach(link => {
+      link.addEventListener('click', function(event) {
+        const url = this.href;
+        const icone = this.querySelector('i') ? this.querySelector('i').classList.value : '';
+
+        // WhatsApp agora funciona normalmente - removida a verificação que bloqueava
+        if (icone.includes('fa-whatsapp')) {
+          // Não previne o comportamento padrão, deixa o link funcionar
+          return;
+        }
+
+        // Para outros links (Instagram, Facebook), mantém a confirmação
+        event.preventDefault();
+        
+        if (!url || url === '#') return;
+
+        const confirmacao = confirm("Você está prestes a sair do site OpalaFood e será redirecionado para outra página. Deseja continuar?");
+       
+        if (confirmacao) {
+          window.open(url, '_blank');
+        }
+      });
+    });
+  });
 </script>
 </body>
 </html>
