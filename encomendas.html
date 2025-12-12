@@ -2004,29 +2004,33 @@ footer.footer {
 
 .filter-sidebar {
   position: fixed;
-  left: 0;
+  right: -100%;
   top: 0;
-  width: 280px;
+  width: 400px;
   height: 100vh;
   background: white;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.15);
   z-index: 10001;
   overflow-y: auto;
-  display: block;
-  border-right: 1px solid #e0e0e0;
+  transition: right 0.3s ease;
+  border-left: 1px solid #e0e0e0;
+}
+
+.filter-sidebar.open {
+  right: 0;
 }
 
 .sidebar-header {
   padding: 20px;
-    background:#fff4e6;
-  color: #ff8839;
+  background: linear-gradient(135deg, #fff8f0, #ffe4d6);
+  color: #f3b94c;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 10;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .sidebar-header h3 {
@@ -2036,10 +2040,27 @@ footer.footer {
   align-items: center;
   gap: 10px;
   margin: 0;
+  color: #f3b94c;
 }
 
 .close-sidebar {
-  display: none;
+  display: flex;
+  background: rgba(249, 115, 22, 0.1);
+  border: none;
+  color: #f97316;
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-sidebar:hover {
+  background: rgba(249, 115, 22, 0.2);
+  transform: rotate(90deg);
 }
 
 .sidebar-content {
@@ -2059,7 +2080,7 @@ footer.footer {
 .filter-group h4 {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: #f3b94c;
   margin-bottom: 15px;
   display: flex;
   align-items: center;
@@ -2091,6 +2112,21 @@ footer.footer {
   height: 18px;
   cursor: pointer;
   accent-color: #f97316;
+}
+
+.filter-checkbox input[type="checkbox"]:checked {
+  background-color: #f97316;
+  border-color: #f97316;
+  filter: brightness(1);
+}
+
+.filter-checkbox input[type="checkbox"]:checked::after {
+  content: '✓';
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .filter-checkbox span {
@@ -2178,34 +2214,45 @@ footer.footer {
   background: #e5e7eb;
 }
 
-.open-sidebar-btn {
+.sidebar-overlay {
   display: none;
 }
 
 .sidebar-overlay {
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.show {
+  display: block;
+  opacity: 1;
 }
 
 body {
-  margin-left: 280px;
+  margin-left: 0 !important;
 }
 
 header.header {
-  width: calc(100% - 280px);
-  margin-left: 280px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 999;
+  width: 100% !important;
+  margin-left: 0 !important;
+  position: relative;
 }
 
 .filter-container {
-  margin-left: 280px;
-  margin-top: 100px;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
 }
 
 .category-section {
-  margin-left: 280px;
+  margin-left: 0 !important;
 }
 
 .no-results-message {
@@ -2280,7 +2327,7 @@ header.header {
   }
   
   .filter-sidebar {
-    width: 280px;
+    width: 320px;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
   }
@@ -2376,6 +2423,26 @@ header.header {
   }
 }
 
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(249, 115, 22, 0.4);
+  }
+}
+
+body.has-sidebar {
+  padding-top: 180px;
+}
+
+@media (max-width: 768px) {
+  body.has-sidebar {
+    padding-top: 0;
+    padding-bottom: 160px;
+  }
+}
 
 /*topo*/
 .categoria-container {
@@ -2465,8 +2532,41 @@ header.header {
     0 12px 40px rgba(249, 115, 22, 0.4);
 }
 
+/* Mensagem de categoria vazia */
+.empty-category-message {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 2px dashed #e5e7eb;
+  margin: 20px;
+  display: none;
+}
 
+.empty-category-message i {
+  font-size: 48px;
+  color: #d1d5db;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.empty-category-message p {
+  font-size: 16px;
+  color: #9ca3af;
+  margin: 0;
+  font-weight: 500;
+}
+
+.empty-category-message.show {
+  display: block;
+}
+
+.category-section .grid-container:empty + .empty-category-message {
+  display: block;
+}
 </style>
+
+<link rel="stylesheet" href="search-bar.css">
 </head>
 <body>
   
@@ -2498,11 +2598,11 @@ header.header {
       <li class="letra">
         <a href="estabelecimentos.html">
           <i class="fas fa-map-marker-alt"></i>
-          <span>Locais</span>
+          <span>Estabelecimentos</span>
         </a>
       </li>
         <li class="letra">
-        <a href="contatenosnovissimo.html">
+        <a href="encomendas.html">
           <i class="fas fa-box-open"></i>
           <span>Encomendas</span>
         </a>
@@ -2658,10 +2758,6 @@ header.header {
   </div>
 </aside>
 
-<button class="open-sidebar-btn" id="openSidebarBtn">
-  <i class="fas fa-filter"></i> Filtros
-</button>
-
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <br><br><br><br>
@@ -2672,18 +2768,12 @@ header.header {
     <h1 class="section-title" id="pizzarias">Pizzarias</h1>
     <div class="grid-container preview">
       
-      <div class="card" data-preco="45">
-        <img src="pizzaria1.jpg" alt="Pizzaria 1" />
-        <div class="card-info">
-          <div class="rating">⭐ 5.00</div>
-          <h2 class="nome">Pizzas do Chiquin</h2>
-          <p class="descricao">Pizzaria aberta de segunda a sexta</p>
-          
-          <button class="btn" onclick="irParaPerfil(1)">Conferir</button>
          
-        </div>
-      </div>    
     </div>
+    <div class="empty-category-message">
+  <i class="fas fa-store-slash"></i>
+  <p>Ainda não há estabelecimentos cadastrados nesta categoria</p>
+</div>
     <div class="fade-overlay"></div>
     <button class="show-more-btn" data-category="pizzarias">Ver todos</button>
   </main>
@@ -2694,16 +2784,12 @@ header.header {
     <h1 class="section-title" id="lanchonetes">Lanchonetes</h1>
     <div class="grid-container preview">
       
-      <div class="card">
-        <img src="lanchonete 1.jpeg" alt="Lanchonete 1" />
-        <div class="card-info">
-          <div class="rating">⭐ 5.00</div>
-          <h2 class="nome">Kombi Burguer</h2>
-          <p class="descricao">Lanchonete aberta todos os dias</p>
-          <button class="btn" onclick="irParaPerfil(3)">Conferir</button>
-        </div>
-      </div>
+      
     </div>
+    <div class="empty-category-message">
+  <i class="fas fa-store-slash"></i>
+  <p>Ainda não há estabelecimentos cadastrados nesta categoria</p>
+</div>
     <div class="fade-overlay"></div>
     <button class="show-more-btn" data-category="lanchonetes">Ver todos</button>
   </main>
@@ -2713,16 +2799,12 @@ header.header {
   <main class="main-content" data-category="sorveterias">
     <h1 class="section-title" id="sorveterias">Sorveterias</h1>
     <div class="grid-container preview">
-      <div class="card">
-        <img src="sorvete1.jpeg" alt="sorveteria 1" />
-        <div class="card-info">
-          <div class="rating">⭐ 5.00</div>
-          <h2 class="nome">Ice Dreams </h2>
-          <p class="descricao">Pizzaria aberta de segunda a sexta</p>
-          <button class="btn" onclick="irParaPerfil(23)">Conferir</button>
-        </div>
-      </div>
+      
     </div>
+    <div class="empty-category-message">
+  <i class="fas fa-store-slash"></i>
+  <p>Ainda não há estabelecimentos cadastrados nesta categoria</p>
+</div>
     <div class="fade-overlay"></div>
     <button class="show-more-btn" data-category="sorveterias">Ver todos</button>
   </main>
@@ -2732,16 +2814,12 @@ header.header {
   <main class="main-content" data-category="docerias">
     <h1 class="section-title" id="docerias">Docerias</h1>
     <div class="grid-container preview">
-      <div class="card">
-        <img src="doce1.jpg" alt="doceria 1" />
-        <div class="card-info">
-          <div class="rating">⭐ 5.00</div>
-          <h2 class="nome"> Docinhos da Vovó</h2>
-          <p class="descricao">Pizzaria aberta de segunda a sexta</p>
-          <button class="btn" onclick="irParaPerfil(35)">Conferir</button>
-        </div>
-      </div>
+      
     </div>
+    <div class="empty-category-message">
+  <i class="fas fa-store-slash"></i>
+  <p>Ainda não há estabelecimentos cadastrados nesta categoria</p>
+</div>
     <div class="fade-overlay"></div>
     <button class="show-more-btn" data-category="docerias">Ver todos</button>
   </main>
@@ -2751,16 +2829,13 @@ header.header {
   <main class="main-content" data-category="frutosdomar">
     <h1 class="section-title" id="frutosdomar">Frutos do Mar</h1>
     <div class="grid-container preview">
-      <div class="card">
-        <img src="mar1.jpeg" alt="fruto 1" />
-        <div class="card-info">
-          <div class="rating">⭐ 5.00</div>
-          <h2 class="nome"> Ostra & Vinho</h2>
-          <p class="descricao">Pizzaria aberta de segunda a sexta</p>
-          <button class="btn" onclick="irParaPerfil(47)">Conferir</button>
-        </div>
-      </div>
+      
+
     </div>
+    <div class="empty-category-message">
+  <i class="fas fa-store-slash"></i>
+  <p>Ainda não há estabelecimentos cadastrados nesta categoria</p>
+</div>
     <div class="fade-overlay"></div>
     <button class="show-more-btn" data-category="frutosdomar">Ver todos</button>
   </main>
@@ -2771,17 +2846,13 @@ header.header {
     <h1 class="section-title" id="comidajaponesa">Comida Japonesa</h1>
     <div class="grid-container preview">
       
-      <div class="card">
-        <img src="japa1.jpg" alt="japonesa 1" />
-        <div class="card-info">
-          <div class="rating">⭐ 5.00</div>
-          <h2 class="nome"> Sakura</h2>
-          <p class="descricao">Pizzaria aberta de segunda a sexta</p>
-          <button class="btn" onclick="irParaPerfil(59)">Conferir</button>
-        </div>
-      </div>
 
     </div>
+
+    <div class="empty-category-message">
+  <i class="fas fa-store-slash"></i>
+  <p>Ainda não há estabelecimentos cadastrados nesta categoria</p>
+</div>
     <div class="fade-overlay"></div>
     <button class="show-more-btn" data-category="comidajaponesa">Ver todos</button>
   </main>
@@ -2792,17 +2863,14 @@ header.header {
     <h1 class="section-title" id="restaurantes">Restaurantes</h1>
     <div class="grid-container preview">
       
-      <div class="card">
-        <img src="restaurante1.jpg" alt="restaurante 1" />
-        <div class="card-info">
-          <div class="rating">⭐ 5.00</div>
-          <h2 class="nome"> Sal & Sabedoria</h2>
-          <p class="descricao">Pizzaria aberta de segunda a sexta</p>
-          <button class="btn" onclick="irParaPerfil(70)">Conferir</button>
-        </div>
-      </div>
+   
    
     </div>
+
+    <div class="empty-category-message">
+  <i class="fas fa-store-slash"></i>
+  <p>Ainda não há estabelecimentos cadastrados nesta categoria</p>
+</div>
     <div class="fade-overlay"></div>
     <button class="show-more-btn" data-category="restaurantes">Ver todos</button>
   </main>
@@ -2812,17 +2880,13 @@ header.header {
   <main class="main-content" data-category="churrascarias">
     <h1 class="section-title" id="churrascarias">Churrascarias</h1>
     <div class="grid-container preview">
-      <div class="card">
-        <img src="carne1.jpg" alt="churrascaria 1" />
-        <div class="card-info">
-          <div class="rating">⭐ 5.00</div>
-          <h2 class="nome">Churrasco & Cia </h2>
-          <p class="descricao">Pizzaria aberta de segunda a sexta</p>
-          <button class="btn" onclick="irParaPerfil(82)">Conferir</button>
-        </div>
-      </div>
 
     </div>
+
+    <div class="empty-category-message">
+  <i class="fas fa-store-slash"></i>
+  <p>Ainda não há estabelecimentos cadastrados nesta categoria</p>
+</div>
     <div class="fade-overlay"></div>
     <button class="show-more-btn" data-category="churrascarias">Ver todos</button>
   </main>
@@ -2943,29 +3007,30 @@ const telefonesEstabelecimentos = {
   12: "5585888888888",  
 };
 
+
 function irParaPerfil(id) {
-  window.location.href = `perfil-restaurante.html?id=${id}`;
+  window.location.href = `perfil-encomenda.html?id=${id}`;
 }
   </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+ document.addEventListener('DOMContentLoaded', function() {
     const socialLinks = document.querySelectorAll('.footer-social a, .social-links a');
 
     socialLinks.forEach(link => {
       link.addEventListener('click', function(event) {
-        event.preventDefault();
-
         const url = this.href;
-        const icone =
-        this.querySelector('i') ?
-        this.querySelector('i').classList.value
-        : '';
+        const icone = this.querySelector('i') ? this.querySelector('i').classList.value : '';
 
-       if (icone.includes('fa-whatsapp')) {
-          alert("O WhatsApp está indisponível no momento.");
+        // WhatsApp agora funciona normalmente - removida a verificação que bloqueava
+        if (icone.includes('fa-whatsapp')) {
+          // Não previne o comportamento padrão, deixa o link funcionar
           return;
         }
+
+        // Para outros links (Instagram, Facebook), mantém a confirmação
+        event.preventDefault();
+        
         if (!url || url === '#') return;
 
         const confirmacao = confirm("Você está prestes a sair do site OpalaFood e será redirecionado para outra página. Deseja continuar?");
@@ -3259,139 +3324,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const sidebar = document.getElementById('filterSidebar');
-  const openBtn = document.getElementById('openSidebarBtn');
-  const closeBtn = document.getElementById('closeSidebar');
-  const overlay = document.getElementById('sidebarOverlay');
-  const applyBtn = document.getElementById('applyFilters');
-  const clearBtn = document.getElementById('clearFilters');
-  const noResultsMsg = document.getElementById('noResultsMessage');
-  
-  if (openBtn) {
-    openBtn.addEventListener('click', function() {
-      sidebar.classList.add('open');
-      overlay.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-  
-  function closeSidebar() {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('show');
-    document.body.style.overflow = '';
-  }
-  
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeSidebar);
-  }
-  
-  if (overlay) {
-    overlay.addEventListener('click', closeSidebar);
-  }
-  
-  applyBtn.addEventListener('click', function() {
-    aplicarFiltros();
-    if (window.innerWidth <= 768) {
-      closeSidebar();
-    }
-  });
-  
-  clearBtn.addEventListener('click', function() {
-    document.querySelectorAll('.category-filter, .price-range-filter').forEach(cb => {
-      cb.checked = false;
-    });
-    document.getElementById('minPrice').value = '';
-    document.getElementById('maxPrice').value = '';
-    
-    document.querySelectorAll('.category-section').forEach(section => {
-      section.style.display = 'block';
-    });
-    document.querySelectorAll('.card').forEach(card => {
-      card.style.display = 'flex';
-    });
-    
-    noResultsMsg.classList.remove('show');
-  });
-  
-  function aplicarFiltros() {
-    const categoriasSelecionadas = Array.from(document.querySelectorAll('.category-filter:checked'))
-      .map(cb => cb.value);
-    
-    const faixasSelecionadas = Array.from(document.querySelectorAll('.price-range-filter:checked'))
-      .map(cb => cb.value);
-    
-    const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
-    const maxPrice = parseFloat(document.getElementById('maxPrice').value) || 999999;
-    
-    let totalCardsVisiveis = 0;
-    
-    if (categoriasSelecionadas.length === 0 && faixasSelecionadas.length === 0 && minPrice === 0 && maxPrice === 999999) {
-      document.querySelectorAll('.category-section').forEach(section => {
-        section.style.display = 'block';
-      });
-      document.querySelectorAll('.card').forEach(card => {
-        card.style.display = 'flex';
-      });
-      noResultsMsg.classList.remove('show');
-      return;
-    }
-    
-    document.querySelectorAll('.category-section').forEach(section => {
-      const categoria = section.getAttribute('data-category');
-      
-      const categoriaMatch = categoriasSelecionadas.length === 0 || 
-                            categoriasSelecionadas.includes(categoria);
-      
-      if (categoriaMatch) {
-        section.style.display = 'block';
-        
-        const cards = section.querySelectorAll('.card');
-        let cardsVisiveis = 0;
-        
-        cards.forEach(card => {
-          const precoCard = parseFloat(card.getAttribute('data-preco')) || 50;
-          
-          let precoMatch = true;
-          
-          if (faixasSelecionadas.length > 0) {
-            precoMatch = faixasSelecionadas.some(faixa => {
-              const [min, max] = faixa.split('-').map(Number);
-              return precoCard >= min && precoCard < max;
-            });
-          }
-          
-          if (minPrice > 0 || maxPrice < 999999) {
-            precoMatch = precoMatch && (precoCard >= minPrice && precoCard <= maxPrice);
-          }
-          
-          if (precoMatch) {
-            card.style.display = 'flex';
-            cardsVisiveis++;
-            totalCardsVisiveis++;
-          } else {
-            card.style.display = 'none';
-          }
-        });
-        
-        if (cardsVisiveis === 0) {
-          section.style.display = 'none';
-        }
-      } else {
-        section.style.display = 'none';
-      }
-    });
-    
-    if (totalCardsVisiveis === 0) {
-      noResultsMsg.classList.add('show');
-    } else {
-      noResultsMsg.classList.remove('show');
-    }
-  }
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  const sidebar = document.getElementById('filterSidebar');
-  const openBtn = document.getElementById('openSidebarBtn');
   const closeBtn = document.getElementById('closeSidebar');
   const overlay = document.getElementById('sidebarOverlay');
   const applyBtn = document.getElementById('applyFilters');
@@ -3399,18 +3331,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const noResultsMsg = document.getElementById('noResultsMessage');
   const categoriaContainer = document.querySelector('.categoria-container');
   
-  if (openBtn) {
-    openBtn.addEventListener('click', function() {
-      sidebar.classList.add('open');
-      overlay.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-  
   function closeSidebar() {
     sidebar.classList.remove('open');
     overlay.classList.remove('show');
     document.body.style.overflow = '';
+    
+    const filterBtn = document.getElementById('filterToggle');
+    if (filterBtn) filterBtn.classList.remove('active');
   }
   
   if (closeBtn) {
@@ -3423,9 +3350,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   applyBtn.addEventListener('click', function() {
     aplicarFiltros();
-    if (window.innerWidth <= 768) {
-      closeSidebar();
-    }
+    closeSidebar();
   });
   
   clearBtn.addEventListener('click', function() {
@@ -3442,7 +3367,6 @@ document.addEventListener('DOMContentLoaded', function() {
       card.style.display = 'flex';
     });
     
-    // Mostrar a seção categoria-container novamente
     if (categoriaContainer) {
       categoriaContainer.style.display = 'flex';
     }
@@ -3462,7 +3386,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let totalCardsVisiveis = 0;
     
-    // Se não houver filtros ativos, mostrar tudo
     if (categoriasSelecionadas.length === 0 && faixasSelecionadas.length === 0 && minPrice === 0 && maxPrice === 999999) {
       document.querySelectorAll('.category-section').forEach(section => {
         section.style.display = 'block';
@@ -3477,7 +3400,6 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
-    // Ocultar a seção categoria-container quando filtros forem aplicados
     if (categoriaContainer) {
       categoriaContainer.style.display = 'none';
     }
@@ -3535,7 +3457,81 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const currentPage = window.location.pathname.split('/').pop();
+  const menuLinks = document.querySelectorAll('.menu a');
+  
+  menuLinks.forEach(link => {
+    const linkPage = link.getAttribute('href');
+    
+    link.classList.remove('active');
+    
+    if (linkPage === currentPage) {
+      link.classList.add('active');
+    }
+    
+    if ((currentPage === '' || currentPage === 'index.html') && linkPage === 'index.html') {
+      link.classList.add('active');
+    }
+  });
+});
+</script>
+<script>
+// Verificar categorias vazias
+document.addEventListener('DOMContentLoaded', function() {
+  verificarCategoriasVazias();
+  
+  // Também verificar após aplicar filtros
+  const applyBtn = document.getElementById('applyFilters');
+  const clearBtn = document.getElementById('clearFilters');
+  
+  if (applyBtn) {
+    applyBtn.addEventListener('click', function() {
+      setTimeout(verificarCategoriasVazias, 100);
+    });
+  }
+  
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      setTimeout(verificarCategoriasVazias, 100);
+    });
+  }
+});
+
+function verificarCategoriasVazias() {
+  document.querySelectorAll('.category-section').forEach(section => {
+    // Pula se a seção está escondida
+    if (section.style.display === 'none') {
+      return;
+    }
+    
+    const gridContainer = section.querySelector('.grid-container');
+    const emptyMessage = section.querySelector('.empty-category-message');
+    const fadeOverlay = section.querySelector('.fade-overlay');
+    const showMoreBtn = section.querySelector('.show-more-btn');
+    
+    if (!gridContainer || !emptyMessage) return;
+    
+    // Conta apenas cards visíveis
+    const cardsVisiveis = Array.from(gridContainer.querySelectorAll('.card'))
+      .filter(card => card.style.display !== 'none');
+    
+    if (cardsVisiveis.length === 0) {
+      // Mostrar mensagem de vazio
+      emptyMessage.classList.add('show');
+      if (fadeOverlay) fadeOverlay.style.display = 'none';
+      if (showMoreBtn) showMoreBtn.style.display = 'none';
+    } else {
+      // Esconder mensagem de vazio
+      emptyMessage.classList.remove('show');
+      if (fadeOverlay) fadeOverlay.style.display = 'block';
+      if (showMoreBtn) showMoreBtn.style.display = 'block';
+    }
+  });
+}
+</script>
+<script src="search-bar.js"></script>
 </body>
 </html>
-
 
