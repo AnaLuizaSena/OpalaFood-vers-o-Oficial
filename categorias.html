@@ -1747,7 +1747,7 @@ footer.footer {
       <li class="letra">
         <a href="estabelecimentos.html">
           <i class="fas fa-map-marker-alt"></i>
-          <span>Locais</span>
+          <span>Estabelecimentos</span>
         </a>
       </li>
         <li class="letra">
@@ -1828,7 +1828,7 @@ footer.footer {
       <div class="categoria-info">
         <h3>Pizzarias</h3>
         <p class="categoria-description">Sabores tradicionais e gourmet direto do forno</p>
-        <a href="estabelecimentos.html" target="_self">
+        <a href="estabelecimentos.html#pizzarias" target="_self">
           <button>Ver Locais</button>
         </a>
       </div>
@@ -1919,7 +1919,7 @@ footer.footer {
       <div class="categoria-info">
         <h3>Churrascarias</h3>
         <p class="categoria-description">Carnes nobres preparadas com excelência</p>
-        <a href="estabelecimentos.html" target="_self">
+        <a href="estabelecimentos.html#churrascarias" target="_self">
           <button>Ver Locais</button>
         </a>
       </div>
@@ -2144,23 +2144,23 @@ function salvarPaginaOrigem() {
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+ document.addEventListener('DOMContentLoaded', function() {
     const socialLinks = document.querySelectorAll('.footer-social a, .social-links a');
 
     socialLinks.forEach(link => {
       link.addEventListener('click', function(event) {
-        event.preventDefault();
-
         const url = this.href;
-        const icone =
-        this.querySelector('i') ?
-        this.querySelector('i').classList.value
-        : '';
+        const icone = this.querySelector('i') ? this.querySelector('i').classList.value : '';
 
-       if (icone.includes('fa-whatsapp')) {
-          alert("O WhatsApp está indisponível no momento.");
+        // WhatsApp agora funciona normalmente - removida a verificação que bloqueava
+        if (icone.includes('fa-whatsapp')) {
+          // Não previne o comportamento padrão, deixa o link funcionar
           return;
         }
+
+        // Para outros links (Instagram, Facebook), mantém a confirmação
+        event.preventDefault();
+        
         if (!url || url === '#') return;
 
         const confirmacao = confirm("Você está prestes a sair do site OpalaFood e será redirecionado para outra página. Deseja continuar?");
