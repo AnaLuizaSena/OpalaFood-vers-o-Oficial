@@ -189,26 +189,49 @@ header.header::before {
             line-height: 1.6;
         }
 
-        .main-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            align-items: flex-start;
-        }
+       .main-content {
+    display: flex;
+    padding: 2rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    gap: 3rem;
+    align-items: flex-start;
+}
 
-        .content-left {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
+     .content-left {
+    flex: 1;
+    max-width: 750px;
+    text-align: center;
+}
 
-        .content-right {
-            flex: 0 0 350px;
-            min-width: 300px;
-        }
+
+.content-right {
+    position: sticky;
+    top: 100px;
+    width: 380px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.content-right::-webkit-scrollbar {
+    width: 6px;
+}
+
+.content-right::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.content-right::-webkit-scrollbar-thumb {
+    background: rgba(249, 115, 22, 0.3);
+    border-radius: 3px;
+}
+
+.content-right::-webkit-scrollbar-thumb:hover {
+    background: rgba(249, 115, 22, 0.5);
+}
 
         #foto2{
             filter: drop-shadow(3px 3px 10px gray);
@@ -248,26 +271,33 @@ header.header::before {
         }
 
         .form-container {
-            background: #fff;
-            width: 100%;
-            max-width: 400px;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid rgba(249, 115, 22, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
+    background: #fff;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    border: 2px solid rgba(249, 115, 22, 0.2);
+    position: relative;
+    overflow: hidden;
+}
 
-        .form-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #f97316, #ffb347);
-        }
+.form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f97316, #ffb347);
+}
+
+@media (min-width: 1025px) {
+    .faq-container {
+        max-width: 750px;
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
 
         .form-container h2 {
             font-size: 1.5rem;
@@ -875,12 +905,31 @@ header.header::before {
     }
 
     .main-content {
+        flex-direction: column;
         padding: 2rem;
         gap: 2rem;
     }
+    
+    .content-left {
+        max-width: 100%;
+    }
+    
+    .content-right {
+        position: static;
+        width: 100%;
+        max-height: none;
+        align-self: auto;
+    }
 
     .form-container {
-        max-width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .faq-container {
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
@@ -2346,6 +2395,30 @@ header.header::before {
  .question-form-section {
  padding: 2rem 1rem;
  }
+
+     .main-content {
+        flex-direction: column !important;
+        padding: 1.5rem 1rem !important;
+        gap: 2rem !important;
+        align-items: center !important;
+    }
+    
+    .content-left {
+        min-width: auto !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .content-right {
+        position: static !important;
+        width: 100% !important;
+        max-height: none !important;
+        margin-top: 2rem !important;
+        right: auto !important;
+        top: auto !important;
+        align-self: auto !important;
+    }
  }
     </style>
     <script>
@@ -2353,7 +2426,7 @@ header.header::before {
     </script>
 </head>
 <body>
-  <header class="header">
+ <header class="header">
   <div class="logo">
     <img src="logo.png" alt="Logo">
   </div>
@@ -2384,16 +2457,22 @@ header.header::before {
           <span>Estabelecimentos</span>
         </a>
       </li>
+         <li class="letra">
+        <a href="encomendas.html">
+          <i class="fas fa-box-open">
+      </i><span>Encomendas</span></a>
+      </li>
       <li class="letra">
         <a href="contatenosnovissimo.html">
           <i class="fas fa-envelope"></i>
           <span>Contato</span>
         </a>
       </li>
+    
     </ul>
   </nav>
 
-  <div class="header-actions">
+   <div class="header-actions">
   <div class="cart-icon" id="cartIcon">
     <i class="fas fa-shopping-cart"></i>
     <span class="cart-count" id="cartCount">0</span>
@@ -2421,37 +2500,6 @@ header.header::before {
     </div>
   </div>
 </div>
-</header>
- <i class="fas fa-chevron-down profile-arrow"></i>
- </div>
-
- <div class="profile-menu" id="profileMenu">
- <div class="profile-menu-header">
- <div class="profile-menu-name" id="menuProfileName">Nome do Usuário</div>
- <div class="profile-menu-email" id="menuProfileEmail">email@exemplo.com</div>
- </div>
- 
- <div class="profile-menu-items">
- <a href="perfil-usuario.html" class="profile-menu-item">
- <i class="fas fa-user"></i>
- <span>Meu Perfil</span>
- </a>
- 
- <a href="configuracoes.html" class="profile-menu-item">
- <i class="fas fa-cog"></i>
- <span>Configurações</span>
- </a>
- 
- <div class="profile-menu-divider"></div>
- 
- <div class="profile-menu-item logout" id="logoutBtn">
- <i class="fas fa-sign-out-alt"></i>
- <span>Sair</span>
- </div>
- </div>
- </div>
- </div>
- </div>
 </header>
 
 <!-- Hero Section -->
@@ -2482,9 +2530,7 @@ header.header::before {
  <button class="category-btn" data-category="entrega">
  <i class="fas fa-truck"></i> Entrega
  </button>
- <button class="category-btn" data-category="conta">
- <i class="fas fa-user-circle"></i> Conta
- </button>
+
  </div>
 
  <!-- FAQ Sections -->
@@ -2624,72 +2670,39 @@ header.header::before {
  </div>
  </div>
 
- <!-- Conta -->
- <div class="faq-section" data-category="conta">
- <h2 class="faq-section-title">
- <i class="fas fa-user-circle"></i>
- Conta e Perfil
- </h2>
 
- <div class="faq-item">
- <div class="faq-question">
- <h3>Como criar uma conta no OpalaFood?</h3>
- <i class="fas fa-chevron-down faq-icon"></i>
- </div>
- <div class="faq-answer">
- <div class="faq-answer-content">
- Criar sua conta é simples e rápido! Clique em "Cadastrar" no canto superior direito, preencha seus dados básicos (nome, e-mail, telefone e senha), confirme seu e-mail e pronto! Você também pode fazer login usando suas contas do Google ou Facebook para mais praticidade.
- </div>
- </div>
- </div>
-
- <div class="faq-item">
- <div class="faq-question">
- <h3>Esqueci minha senha, como recupero?</h3>
- <i class="fas fa-chevron-down faq-icon"></i>
- </div>
- <div class="faq-answer">
- <div class="faq-answer-content">
- Na tela de login, clique em "Esqueci minha senha". Digite o e-mail cadastrado e você receberá um link para redefinir sua senha. Caso não receba o e-mail em alguns minutos, verifique sua caixa de spam ou entre em contato com nosso suporte.
- </div>
- </div>
- </div>
-
- <div class="faq-item">
- <div class="faq-question">
- <h3>Como atualizar meus dados cadastrais?</h3>
- <i class="fas fa-chevron-down faq-icon"></i>
- </div>
- </div>
-
- <div class="faq-item">
- <div class="faq-question">
- <h3>Posso ter mais de uma conta?</h3>
- <i class="fas fa-chevron-down faq-icon"></i>
- </div>
- <div class="faq-answer">
- <div class="faq-answer-content">
- Recomendamos manter apenas uma conta por usuário para facilitar o gerenciamento de pedidos e aproveitar melhor nossos programas de fidelidade. Se precisar fazer pedidos para diferentes endereços, você pode cadastrar múltiplos endereços na mesma conta.
- </div>
- </div>
- </div>
-
- <div class="faq-item">
- <div class="faq-question">
- <h3>Como faço para excluir minha conta?</h3>
- <i class="fas fa-chevron-down faq-icon"></i>
- </div>
- <div class="faq-answer">
- <div class="faq-answer-content">
- Se deseja excluir sua conta, acesse "Configurações" > "Privacidade e Segurança" > "Excluir Conta". Lembre-se que esta ação é irreversível e todos os seus dados, histórico de pedidos e cupons serão permanentemente removidos. Se tiver pedidos pendentes, aguarde a conclusão antes de excluir.
- </div>
- </div>
- </div>
- </div>
  </div>
 </div>
 
   <div class="main-content">
+    <!-- Formulário Sticky -->
+    <div class="content-right">
+      <div class="form-container">
+        <h2>Envie Uma Mensagem</h2>
+        <form id="formularioContato">
+          <input type="hidden" id="area" value="Visitante" />
+          
+          <div class="input-group">
+            <input type="text" id="nome" placeholder="Nome" required />
+          </div>
+          <div class="input-group">
+            <input type="email" id="email" placeholder="Endereço E-mail" required />
+          </div>
+          <div class="input-group">
+            <input type="tel" id="telefone" placeholder="Telefone (opcional)" />
+          </div>
+          <div class="input-group">
+            <textarea id="mensagem" placeholder="Sua Mensagem" required></textarea>
+          </div>
+          <div class="input-group">
+            <button type="submit" id="botaoEnviar">Enviar</button>
+          </div>
+          <div id="mensagem-feedback" style="display:none; margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 500; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
     <div class="content-left">
       <h1>Contate-nos</h1>
       <p id="iddop">
@@ -2711,33 +2724,7 @@ header.header::before {
         </div>
       </div>
     </div>
-
-    <div class="content-right">
-      <div class="form-container">
-  <h2>Envie Uma Mensagem</h2>
-  <form id="formularioContato">
-    <input type="hidden" id="area" value="Visitante" />
-    
-    <div class="input-group">
-      <input type="text" id="nome" placeholder="Nome" required />
-    </div>
-    <div class="input-group">
-      <input type="email" id="email" placeholder="Endereço E-mail" required />
-    </div>
-    <div class="input-group">
-      <input type="tel" id="telefone" placeholder="Telefone (opcional)" />
-    </div>
-    <div class="input-group">
-      <textarea id="mensagem" placeholder="Sua Mensagem" required></textarea>
-    </div>
-    <div class="input-group">
-      <button type="submit" id="botaoEnviar">Enviar</button>
-    </div>
-    <div id="mensagem-feedback" style="display:none; margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 500; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);"></div>
-  </form>
 </div>
-    </div>
-  </div>
 </div>
 
   <footer class="footer">
@@ -3102,19 +3089,19 @@ header.header::before {
 
     socialLinks.forEach(link => {
       link.addEventListener('click', function(event) {
-        event.preventDefault();
+        const url = this.href;
+        const icone = this.querySelector('i') ? this.querySelector('i').classList.value : '';
 
-        const url = "https://wa.me/5586994906183";
-        const icone =
-        this.querySelector('i') ?
-        this.querySelector('i').classList.value
-        : '';
-
-       if (icone.includes('fa-whatsapp')) {
-          alert("O WhatsApp está indisponível no momento.");
+        // WhatsApp agora funciona normalmente - removida a verificação que bloqueava
+        if (icone.includes('fa-whatsapp')) {
+          // Não previne o comportamento padrão, deixa o link funcionar
           return;
         }
-        if (!url || url === 'https://wa.me/5586994906183') return;
+
+        // Para outros links (Instagram, Facebook), mantém a confirmação
+        event.preventDefault();
+        
+        if (!url || url === '#') return;
 
         const confirmacao = confirm("Você está prestes a sair do site OpalaFood e será redirecionado para outra página. Deseja continuar?");
        
