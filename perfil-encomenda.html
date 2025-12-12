@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encomendas - Perfil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="cart-sync.js"></script>
+  <script src="encomendas-data.js"></script>
+  <style>
+:root {
+  --primary: #FF8C42;
+  --primary-hover: #FF7A29;
+  --primary-light: #FFB67D;
+  --success: #00A878;
+  --dark: #2E2E2E;
+  --gray: #717171;
+  --light-gray: #F5F5F5;
+  --border: #E8E8E8;
+  --white: #FFFFFF;
+  --rating: #FFB800;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #F8F8F8;
+  color: var(--dark);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* HEADER - Igual ao original */
+header.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 4rem;
+  background: linear-gradient(135deg, #ffffff 0%, #fff8f0 50%, #fff4e6 100%);
+  position: relative;
+  z-index: 1000;
+  border-bottom: 2px solid rgba(249, 115, 22, 0.1);
+  box-shadow: 0 4px 25px rgba(249, 115, 22, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+header.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(249, 115, 22, 0.02) 25%, 
+    rgba(255, 168, 50, 0.02) 50%, 
+    rgba(249, 115, 22, 0.02) 75%, 
+    transparent 100%
+  );
+  z-index: -1;
+  animation: headerGlow 10s ease-in-out infinite; /* Mudou de 6s para 10s */
+  opacity: 0.5; /* Adicionar opacidade fixa */
+}
+
+.logo {
+  position: relative;
+  padding: 8px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.logo img {
+  width: 100px;
+  height: auto;
+  filter: drop-shadow(0 2px 8px rgba(249, 115, 22, 0.3));
+  transition: all 0.3s ease;
+}
+
+.center-menu {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.menu {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 20px rgba(249, 115, 22, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(249, 115, 22, 0.1);
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 10px 18px;
+  border-radius: 25px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.menu li a::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: linear-gradient(135deg, #f97316, #ffb347);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease; /* Era 0.4s */
+  z-index: -1;
+  opacity: 0; /* ADICIONAR ESTA LINHA */
+}
+
+.menu li a:hover::before {
+  width: 120%;
+  height: 150%;
+  opacity: 1; /* ADICIONAR ESTA LINHA */
+}
+
+.menu li a:hover {
+  font-weight: 600;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
+}
+
+.menu li a.active {
+  color: white;
+  font-weight: 600;
+  background: linear-gradient(135deg, #f97316, #ffb347);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
+}
+
+.menu li a.active::before {
+  width: 120%;
+  height: 150%;
+  opacity: 1; /* ADICIONAR ESTA LINHA */
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  position: relative;
+}
+
+/* HERO SECTION */
+.restaurant-hero {
+  background: var(--white);
+  margin-bottom: 24px;
+}
+
+.hero-image {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  transform: translateY(-60px);
+  margin-bottom: -40px;
+}
+
+.restaurant-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+}
+
+.restaurant-details h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.restaurant-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.meta-item i {
+  color: var(--primary);
+}
+
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--success);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 13px;
+  background: #FFF4E6;
+  color: #E65100;
+}
+
+.restaurant-address {
+  color: var(--gray);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.restaurant-address:hover {
+  color: var(--primary);
+}
+
+.cta-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-primary {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(234, 29, 44, 0.3);
+}
+
+/* INFO BADGES */
+.info-badges {
+  max-width: 1200px;
+  margin: 0 auto 32px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.info-badge {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+
+.info-badge:hover {
+  transform: translateY(-4px);
+}
+
+.info-badge i {
+  font-size: 28px;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.info-badge strong {
+  display: block;
+  font-size: 14px;
+  color: var(--dark);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.info-badge p {
+  font-size: 13px;
+  color: var(--gray);
+  margin: 0;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+.section {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.section-header {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+/* CATÁLOGO DE PRODUTOS */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  background: var(--light-gray);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: #e0e0e0;
+  display: block;
+  flex-shrink: 0;
+}
+
+.product-image.loaded {
+  background: #ddd;
+}
+
+.product-info {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.product-info p {
+  font-size: 14px;
+  color: var(--gray);
+  margin-bottom: 12px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.product-meta {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.meta-badge {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: white;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.product-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.btn-contact {
+  width: 100%;
+  padding: 12px;
+  background: var(--success);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-contact:hover {
+  background: #008f66;
+  transform: translateY(-2px);
+}
+
+/* INFO CARDS */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.info-card {
+  background: var(--light-gray);
+  padding: 24px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+}
+
+.info-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 12px;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-card li {
+  font-size: 14px;
+  color: var(--gray);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-card li:last-child {
+  border-bottom: none;
+}
+
+.info-card li i {
+  color: var(--success);
+  font-size: 12px;
+}
+
+/* FOOTER */
+footer.footer {
+  background: linear-gradient(135deg, #fef7ed 0%, #fff8f0 50%, #fefbf7 100%);
+  border-top: 1px solid rgba(249, 115, 22, 0.2);
+  margin-top: 40px;
+  padding: 40px 0 30px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.footer-section h3 {
+  color: #f97316;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.footer-section h3::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: #f97316;
+  margin-top: 8px;
+}
+
+.about-section p {
+  color: #6b7280;
+  line-height: 1.7;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 8px;
+  color: #6b7280;
+  transition: all 0.3s ease;
+  border: 1px solid #fed7aa;
+  font-size: 16px;
+}
+
+.social-link:hover {
+  color: white;
+  background: #f97316;
+  transform: translateY(-2px);
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.contact-icon {
+  color: #f97316;
+  width: 16px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer-bottom {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(249, 115, 22, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.footer-bottom p {
+  color: #9ca3af;
+  margin: 0;
+  font-size: 13px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo img {
+  width: 35px;
+  height: auto;
+}
+
+.footer-logo span {
+  color: #f97316;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  header.header {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .logo img {
+    width: 80px;
+  }
+
+  .center-menu {
+    width: 100%;
+  }
+
+  .menu {
+    justify-content: space-around;
+    padding: 8px;
+    width: 100%;
+  }
+
+  .menu li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .menu li a i {
+    font-size: 18px;
+  }
+
+  .restaurant-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .catalog-grid,
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Forçar layout estável */
+.catalog-grid > * {
+  contain: layout;
+}
+
+.product-card img {
+  pointer-events: none;
+}
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+    <img src="logo.png" alt="Logo">
+  </div>
+  
+  <nav class="center-menu">
+    <ul class="menu">
+      <li>
+        <a href="index.html">
+          <i class="fas fa-home"></i>
+          <span>Inicial</span>
+        </a>
+      </li>
+      <li>
+        <a href="categorias.html">
+          <i class="fas fa-utensils"></i>
+          <span>Menu</span>
+        </a>
+      </li>
+      <li>
+        <a href="sobrenosversaonova.html">
+          <i class="fas fa-info-circle"></i>
+          <span>Sobre</span>
+        </a>
+      </li>
+      <li>
+        <a href="estabelecimentos.html">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Locais</span>
+        </a>
+      </li>
+      <li>
+        <a href="encomendas.html" class="active">
+          <i class="fas fa-box-open"></i>
+          <span>Encomendas</span>
+        </a>
+      </li>
+      <li>
+        <a href="contatenosnovissimo.html">
+          <i class="fas fa-envelope"></i>
+          <span>Contato</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="header-actions">
+    <!-- Ações do header se necessário -->
+  </div>
+</header>
+
+<main>
+  <div class="restaurant-hero">
+    <img src="pizzaria1.jpg" alt="Estabelecimento" class="hero-image">
+    
+    <div class="hero-content">
+      <div class="restaurant-card">
+        <div class="restaurant-details">
+          <h1>Nome do Estabelecimento</h1>
+          
+          <div class="restaurant-meta">
+            <div class="rating-badge">
+              <i class="fas fa-star"></i>
+              0.0
+            </div>
+            <span class="status-badge">
+              <i class="fas fa-box"></i>
+              Somente Encomendas
+            </span>
+            <span class="meta-item">
+              <i class="fas fa-clock"></i>
+              Prazo mínimo: 24h
+            </span>
+          </div>
+          
+          <a href="#" target="_blank" class="restaurant-address">
+            <i class="fas fa-map-marker-alt"></i>
+            Carregando endereço...
+          </a>
+        </div>
+        
+        <div class="cta-buttons">
+          <a href="#" class="btn-primary" id="whatsappBtn">
+            <i class="fab fa-whatsapp"></i>
+            Fazer Encomenda
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-badges">
+    <div class="info-badge">
+      <i class="fas fa-calendar-check"></i>
+      <strong>Prazo Mínimo</strong>
+      <p>-- horas</p>
+    </div>
+    
+    <div class="info-badge">
+      <i class="fas fa-store"></i>
+      <strong>Retirada</strong>
+      <p>No local</p>
+    </div>
+    
+    <div class="info-badge">
+      <i class="fas fa-dollar-sign"></i>
+      <strong>Pedido Mínimo</strong>
+      <p>R$ --</p>
+    </div>
+    
+    <div class="info-badge">
+      <i class="fas fa-credit-card"></i>
+      <strong>Pagamento</strong>
+      <p>Consulte</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <section id="catalogo" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Catálogo de Encomendas</h2>
+        <p class="section-subtitle">Confira nossas opções para festas e eventos</p>
+      </div>
+      
+      <div class="catalog-grid" id="catalogGrid">
+        <p style="text-align: center; color: #999;">Carregando catálogo...</p>
+      </div>
+    </section>
+
+    <section id="informacoes" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Informações Importantes</h2>
+        <p class="section-subtitle">Tudo que você precisa saber para fazer sua encomenda</p>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Como Encomendar</h3>
+          <ul id="informacoesLista">
+            <li><i class="fas fa-check-circle"></i> Carregando...</li>
+          </ul>
+        </div>
+        
+        <div class="info-card">
+          <h3>Contato</h3>
+          <p id="contatoInfo">Carregando informações de contato...</p>
+          <a href="#" class="btn-primary" id="contatoWhatsapp">
+            <i class="fab fa-whatsapp"></i>
+            Chamar no WhatsApp
+          </a>
+        </div>
+        
+        <div class="info-card">
+          <h3>Horário de Atendimento</h3>
+          <p id="horarioInfo">Carregando horários...</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section about-section">
+      <h3>Sobre Nós</h3>
+      <p>Oferecemos as melhores experiências gastronômicas com ingredientes frescos e sabores únicos.</p>
+      <div class="footer-social">
+        <a href="https://wa.me/5586994906183" class="social-link" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+        <a href="https://www.instagram.com/opalafood_p2?igsh=dGhrMjl6MzF6eHA2" class="social-link">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="social-link">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </div>
+    </div>
+    
+    <div class="footer-section contact-section">
+      <h3>Contato</h3>
+      <div class="contact-info">
+        <div class="contact-item">
+          <i class="fas fa-phone contact-icon"></i>
+          <span>(86) 9490-6183</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope contact-icon"></i>
+          <span>opalafoodp2@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <div class="footer-logo">
+      <img src="logo.png" alt="Logo OpalaFood">
+      <span>OpalaFood</span>
+    </div>
+    <p>&copy; 2025 OpalaFood. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+function carregarDadosEncomenda() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = parseInt(urlParams.get('id'));
+  
+  if (!id || !ENCOMENDAS_DATA[id]) {
+    alert('Estabelecimento não encontrado!');
+    window.location.href = 'encomendas.html';
+    return;
+  }
+
+  const est = ENCOMENDAS_DATA[id];
+  
+  // Usar setTimeout para evitar mudanças bruscas
+  setTimeout(() => {
+    // Atualizar informações básicas
+    const heroImage = document.querySelector('.hero-image');
+    heroImage.style.opacity = '0';
+    setTimeout(() => {
+      heroImage.src = est.imagem;
+      heroImage.style.transition = 'opacity 0.3s ease';
+      heroImage.style.opacity = '1';
+    }, 100);
+    
+    document.querySelector('.restaurant-details h1').textContent = est.nome;
+    document.title = `${est.nome} - Encomendas | OpalaFood`;
+
+    document.querySelector('.rating-badge').innerHTML = `
+      <i class="fas fa-star"></i>
+      ${est.rating.toFixed(1)}
+    `;
+
+    document.querySelector('.status-badge').innerHTML = `
+      <i class="fas fa-box"></i>
+      Somente Encomendas
+    `;
+
+    document.querySelector('.meta-item').innerHTML = `
+      <i class="fas fa-clock"></i>
+      Prazo mínimo: ${est.prazoMinimoEncomenda}
+    `;
+
+    const enderecoCompleto = `${est.endereco}, ${est.bairro}, ${est.cidade} - ${est.estado}`;
+    const enderecoLink = document.querySelector('.restaurant-address');
+    enderecoLink.innerHTML = `
+      <i class="fas fa-map-marker-alt"></i>
+      ${enderecoCompleto}
+    `;
+    enderecoLink.href = `https://maps.google.com/?q=${encodeURIComponent(enderecoCompleto)}`;
+
+    // Atualizar badges
+    const infoBadges = document.querySelectorAll('.info-badge');
+    
+    infoBadges[0].innerHTML = `
+      <i class="fas fa-calendar-check"></i>
+      <strong>Prazo Mínimo</strong>
+      <p>${est.prazoMinimoEncomenda}</p>
+    `;
+
+    infoBadges[1].innerHTML = `
+      <i class="fas fa-store"></i>
+      <strong>Retirada</strong>
+      <p>No local</p>
+    `;
+
+    infoBadges[2].innerHTML = `
+      <i class="fas fa-dollar-sign"></i>
+      <strong>Pedido Mínimo</strong>
+      <p>R$ ${est.pedidoMinimo.toFixed(2)}</p>
+    `;
+
+    infoBadges[3].innerHTML = `
+      <i class="fas fa-credit-card"></i>
+      <strong>Pagamento</strong>
+      <p>${est.formasPagamento[0]}</p>
+    `;
+
+    // Botões WhatsApp
+    const whatsappNum = est.whatsapp.replace(/\D/g, '');
+    const mensagem = encodeURIComponent(`Olá! Gostaria de fazer uma encomenda no ${est.nome}.`);
+    const whatsappLink = `https://wa.me/${whatsappNum}?text=${mensagem}`;
+    
+    document.getElementById('whatsappBtn').href = whatsappLink;
+    document.getElementById('contatoWhatsapp').href = whatsappLink;
+
+    // Carregar catálogo com delay para suavizar
+    setTimeout(() => {
+      carregarCatalogo(est);
+    }, 200);
+
+    // Carregar informações adicionais
+    const infoLista = document.getElementById('informacoesLista');
+    if (est.informacoesAdicionais && est.informacoesAdicionais.length > 0) {
+      infoLista.innerHTML = est.informacoesAdicionais.map(info => 
+        `<li><i class="fas fa-check-circle"></i> ${info}</li>`
+      ).join('');
+    }
+
+    // Informações de contato
+    document.getElementById('contatoInfo').innerHTML = `
+      <strong>Telefone:</strong> ${est.telefone}<br>
+      ${est.telefoneFixo ? `<strong>Fixo:</strong> ${est.telefoneFixo}<br>` : ''}
+      <strong>WhatsApp:</strong> ${est.telefone}<br>
+      ${est.email ? `<strong>Email:</strong> ${est.email}<br>` : ''}
+      ${est.instagram ? `<strong>Instagram:</strong> ${est.instagram}` : ''}
+    `;
+
+    // Horário de funcionamento
+    const horaAbre = String(est.horarioAberturaHora).padStart(2, '0');
+    const minAbre = String(est.horarioAberturaMin).padStart(2, '0');
+    const horaFecha = String(est.horarioFechamentoHora).padStart(2, '0');
+    const minFecha = String(est.horarioFechamentoMin).padStart(2, '0');
+    
+    document.getElementById('horarioInfo').innerHTML = `
+      <strong>${est.diasFuncionamento[0]} a ${est.diasFuncionamento[est.diasFuncionamento.length - 1]}</strong><br>
+      ${horaAbre}:${minAbre} - ${horaFecha}:${minFecha}<br>
+      <em style="color: var(--primary); font-size: 13px; margin-top: 8px; display: block;">
+        Atendimento para encomendas
+      </em>
+    `;
+  }, 50);
+}
+
+function carregarCatalogo(est) {
+  const catalogGrid = document.getElementById('catalogGrid');
+  
+  // Mostrar skeleton loading primeiro
+  catalogGrid.innerHTML = `
+    <div class="product-card loading-skeleton" style="min-height: 450px;"></div>
+    <div class="product-card loading-skeleton" style="min-height: 450px;"></div>
+    <div class="product-card loading-skeleton" style="min-height: 450px;"></div>
+  `;
+  
+  // Aguardar um pouco antes de carregar o conteúdo real
+  setTimeout(() => {
+    let catalogHTML = '';
+    
+    Object.entries(est.catalogo).forEach(([categoria, produtos]) => {
+      catalogHTML += `<div style="grid-column: 1/-1;"><h3 style="font-size: 20px; color: var(--primary); margin-bottom: 16px;">${categoria}</h3></div>`;
+      
+      produtos.forEach((produto, index) => {
+        catalogHTML += `
+          <div class="product-card" style="animation-delay: ${index * 0.1}s;">
+            <img 
+              src="${produto.imagem}" 
+              alt="${produto.nome}" 
+              class="product-image" 
+              onerror="this.src='placeholder.jpg'; this.classList.add('loaded');"
+              onload="this.classList.add('loaded')"
+              loading="lazy"
+            >
+            <div class="product-info">
+              <h3>${produto.nome}</h3>
+              <p>${produto.descricao}</p>
+              <div class="product-meta">
+                ${produto.servePessoas ? `<span class="meta-badge"><i class="fas fa-users"></i> ${produto.servePessoas} pessoas</span>` : ''}
+                ${produto.prazoMinimo ? `<span class="meta-badge"><i class="fas fa-clock"></i> ${produto.prazoMinimo}</span>` : ''}
+              </div>
+              <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
+              <button class="btn-contact" onclick="encomendar('${produto.nome}', ${produto.preco})">
+                <i class="fab fa-whatsapp"></i>
+                Encomendar
+              </button>
+            </div>
+          </div>
+        `;
+      });
+    });
+    
+    catalogGrid.innerHTML = catalogHTML;
+    
+    // Pré-carregar imagens para evitar reorganização
+    const images = catalogGrid.querySelectorAll('.product-image');
+    images.forEach(img => {
+      if (img.complete) {
+        img.classList.add('loaded');
+      }
+    });
+  }, 300);
+}
+
+function encomendar(nomeProduto, preco) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = parseInt(urlParams.get('id'));
+  const est = ENCOMENDAS_DATA[id];
+  
+  const mensagem = encodeURIComponent(
+    `Olá! Gostaria de encomendar:\n\n` +
+    `📦 Produto: ${nomeProduto}\n` +
+    `💰 Valor: R$ ${preco.toFixed(2)}\n\n` +
+    `Aguardo retorno para combinar detalhes!`
+  );
+  
+  const whatsappNum = est.whatsapp.replace(/\D/g, '');
+  window.open(`https://wa.me/${whatsappNum}?text=${mensagem}`, '_blank');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  carregarDadosEncomenda();
+});
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const socialLinks = document.querySelectorAll('.footer-social a, .social-links a');
+
+    socialLinks.forEach(link => {
+      link.addEventListener('click', function(event) {
+        const url = this.href;
+        const icone = this.querySelector('i') ? this.querySelector('i').classList.value : '';
+
+        // WhatsApp agora funciona normalmente - removida a verificação que bloqueava
+        if (icone.includes('fa-whatsapp')) {
+          // Não previne o comportamento padrão, deixa o link funcionar
+          return;
+        }
+
+        // Para outros links (Instagram, Facebook), mantém a confirmação
+        event.preventDefault();
+        
+        if (!url || url === '#') return;
+
+        const confirmacao = confirm("Você está prestes a sair do site OpalaFood e será redirecionado para outra página. Deseja continuar?");
+       
+        if (confirmacao) {
+          window.open(url, '_blank');
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
